@@ -25,7 +25,7 @@ namespace DotRange
             range.HasUpperBound().Should().BeTrue();
             range.UpperEndpoint().Should().Be(8);
             range.UpperBoundType().Should().Be(BoundType.OPEN);
-            range.Empty.Should().BeFalse();
+            range.IsEmpty().Should().BeFalse();
             range.ToString().Should().Be("(4..8)");
             range.Should().BeBinarySerializable();
         }
@@ -54,7 +54,7 @@ namespace DotRange
             range.HasUpperBound().Should().BeTrue();
             range.UpperEndpoint().Should().Be(7);
             range.UpperBoundType().Should().Be(BoundType.CLOSED);
-            range.Empty.Should().BeFalse();
+            range.IsEmpty().Should().BeFalse();
             range.ToString().Should().Be("[5..7]");
             range.Should().BeBinarySerializable();
         }
@@ -80,7 +80,7 @@ namespace DotRange
             range.HasUpperBound().Should().BeTrue();
             range.UpperEndpoint().Should().Be(7);
             range.UpperBoundType().Should().Be(BoundType.CLOSED);
-            range.Empty.Should().BeFalse();
+            range.IsEmpty().Should().BeFalse();
             range.ToString().Should().Be("(4..7]");
             range.Should().BeBinarySerializable();
         }
@@ -99,7 +99,7 @@ namespace DotRange
             range.HasUpperBound().Should().BeTrue();
             range.UpperEndpoint().Should().Be(8);
             range.UpperBoundType().Should().Be(BoundType.OPEN);
-            range.Empty.Should().BeFalse();
+            range.IsEmpty().Should().BeFalse();
             range.ToString().Should().Be("[5..8)");
             range.Should().BeBinarySerializable();
         }
@@ -129,7 +129,7 @@ namespace DotRange
             range.HasUpperBound().Should().BeTrue();
             range.UpperEndpoint().Should().Be(4);
             range.UpperBoundType().Should().Be(BoundType.CLOSED);
-            range.Empty.Should().BeFalse();
+            range.IsEmpty().Should().BeFalse();
             range.ToString().Should().Be("[4..4]");
             range.Should().BeBinarySerializable();
         }
@@ -147,7 +147,7 @@ namespace DotRange
             range.HasUpperBound().Should().BeTrue();
             range.UpperEndpoint().Should().Be(4);
             range.UpperBoundType().Should().Be(BoundType.OPEN);
-            range.Empty.Should().BeTrue();
+            range.IsEmpty().Should().BeTrue();
             range.ToString().Should().Be("[4..4)");
             range.Should().BeBinarySerializable();
         }
@@ -165,7 +165,7 @@ namespace DotRange
             range.HasUpperBound().Should().BeTrue();
             range.UpperEndpoint().Should().Be(4);
             range.UpperBoundType().Should().Be(BoundType.CLOSED);
-            range.Empty.Should().BeTrue();
+            range.IsEmpty().Should().BeTrue();
             range.ToString().Should().Be("(4..4]");
             range.Should().BeBinarySerializable();
         }
@@ -181,7 +181,7 @@ namespace DotRange
             range.HasUpperBound().Should().BeTrue();
             range.UpperEndpoint().Should().Be(5);
             range.UpperBoundType().Should().Be(BoundType.OPEN);
-            range.Empty.Should().BeFalse();
+            range.IsEmpty().Should().BeFalse();
             range.ToString().Should().Be("(-\u221e..5)");
             range.Should().BeBinarySerializable();
         }
@@ -197,7 +197,7 @@ namespace DotRange
             range.LowerEndpoint().Should().Be(5);
             range.LowerBoundType().Should().Be(BoundType.OPEN);
             AssertUnboundedAbove(range);
-            range.Empty.Should().BeFalse();
+            range.IsEmpty().Should().BeFalse();
             range.ToString().Should().Be("(5..+\u221e)");
             range.Should().BeBinarySerializable();
         }
@@ -213,7 +213,7 @@ namespace DotRange
             range.LowerEndpoint().Should().Be(6);
             range.LowerBoundType().Should().Be(BoundType.CLOSED);
             AssertUnboundedAbove(range);
-            range.Empty.Should().BeFalse();
+            range.IsEmpty().Should().BeFalse();
             range.ToString().Should().Be("[6..+\u221e)");
             range.Should().BeBinarySerializable();
         }
@@ -229,7 +229,7 @@ namespace DotRange
             range.HasUpperBound().Should().BeTrue();
             range.UpperEndpoint().Should().Be(4);
             range.UpperBoundType().Should().Be(BoundType.CLOSED);
-            range.Empty.Should().BeFalse();
+            range.IsEmpty().Should().BeFalse();
             range.ToString().Should().Be("(-\u221e..4]");
             range.Should().BeBinarySerializable();
         }
@@ -242,7 +242,7 @@ namespace DotRange
             range.Contains(int.MaxValue).Should().BeTrue();
             AssertUnboundedBelow(range);
             AssertUnboundedAbove(range);
-            range.Empty.Should().BeFalse();
+            range.IsEmpty().Should().BeFalse();
             range.ToString().Should().Be("(-\u221e..+\u221e)");
             range.Should().BeBinarySerializable();
         }

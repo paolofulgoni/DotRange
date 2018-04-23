@@ -301,9 +301,9 @@ namespace DotRange
         /// considered empty, even though they contain no actual values.
         /// </para>
         /// </summary>
-        public bool Empty
+        public bool IsEmpty()
         {
-            get { return _lowerBound.Equals(_upperBound); }
+            return _lowerBound.Equals(_upperBound);
         }
 
         /// <summary>
