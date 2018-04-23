@@ -506,6 +506,58 @@ namespace DotRange
             Range.Closed(1, 7).Should().Be(Range.Bounded(1, BoundType.CLOSED, 7, BoundType.CLOSED));
             Range.ClosedOpen(1, 7).Should().Be(Range.Bounded(1, BoundType.CLOSED, 7, BoundType.OPEN));
         }
+
+        [Test]
+        public void ReadmeExamples()
+        {
+            var lexiRange = Range.Closed("left", "right");
+            lexiRange.Contains("lift").Should().BeTrue();
+            Range.LessThan(4.0);
+
+            var boundType = BoundType.CLOSED;
+            Range.DownTo(4, boundType);
+            Range.Bounded(1, BoundType.CLOSED, 4, BoundType.OPEN);
+
+            Range.Closed(1, 3).Contains(2).Should().BeTrue();
+            Range.Closed(1, 3).Contains(4).Should().BeFalse();
+            Range.LessThan(5).Contains(5).Should().BeFalse();
+            Range.Closed(1, 4).ContainsAll(new int[] { 1, 2, 3 }).Should().BeTrue();
+
+            Range.ClosedOpen(4, 4).IsEmpty().Should().BeTrue();
+            Range.OpenClosed(4, 4).IsEmpty().Should().BeTrue();
+            Range.Closed(4, 4).IsEmpty().Should().BeFalse();
+            Action act1 = () => Range.Open(4, 4).IsEmpty();
+            act1.Should().Throw<ArgumentException>();
+
+            Range.Closed(3, 10).LowerEndpoint().Should().Be(3);
+            Range.Open(3, 10).LowerEndpoint().Should().Be(3);
+            Range.Closed(3, 10).LowerBoundType().Should().Be(BoundType.CLOSED);
+            Range.Open(3, 10).UpperBoundType().Should().Be(BoundType.OPEN);
+
+            Range.Closed(3, 6).Encloses(Range.Closed(4, 5)).Should().BeTrue();
+            Range.Open(3, 6).Encloses(Range.Open(3, 6)).Should().BeTrue();
+            Range.Closed(4, 5).Encloses(Range.Open(3, 6)).Should().BeFalse();
+
+            Range.Closed(3, 5).IsConnected(Range.Open(5, 10)).Should().BeTrue();
+            Range.Closed(0, 9).IsConnected(Range.Closed(3, 4)).Should().BeTrue();
+            Range.Closed(0, 5).IsConnected(Range.Closed(3, 9)).Should().BeTrue();
+            Range.Open(3, 5).IsConnected(Range.Open(5, 10)).Should().BeFalse();
+            Range.Closed(1, 5).IsConnected(Range.Closed(6, 10)).Should().BeFalse();
+
+            Range.Closed(3, 5).Intersection(Range.Open(5, 10)).Should().Be(Range.OpenClosed(5, 5));
+            Range.Closed(0, 9).Intersection(Range.Closed(3, 4)).Should().Be(Range.Closed(3, 4));
+            Range.Closed(0, 5).Intersection(Range.Closed(3, 9)).Should().Be(Range.Closed(3, 5));
+            Action act2 = () => Range.Open(3, 5).Intersection(Range.Open(5, 10));
+            act2.Should().Throw<ArgumentException>();
+            Action act3 = () => Range.Closed(1, 5).Intersection(Range.Closed(6, 10));
+            act3.Should().Throw<ArgumentException>();
+
+            Range.Closed(3, 5).Span(Range.Open(5, 10)).Should().Be(Range.ClosedOpen(3, 10));
+            Range.Closed(0, 9).Span(Range.Closed(3, 4)).Should().Be(Range.Closed(0, 9));
+            Range.Closed(0, 5).Span(Range.Closed(3, 9)).Should().Be(Range.Closed(0, 9));
+            Range.Open(3, 5).Span(Range.Open(5, 10)).Should().Be(Range.Open(3, 10));
+            Range.Closed(1, 5).Span(Range.Closed(6, 10)).Should().Be(Range.Closed(1, 10));
+        }
     }
 
 }
