@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{533E9707-4DA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D6305246-C409-484D-B2FE-B634E8BBDEF4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotRange", "src\DotRange.csproj", "{B0A8E81A-1EA5-4B4C-B88B-6097B49D67AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotRange", "src\DotRange\DotRange.csproj", "{B0A8E81A-1EA5-4B4C-B88B-6097B49D67AB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotRange.Tests", "test\DotRange.Tests.csproj", "{F5AF3384-D744-41F7-9433-936D753FD533}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotRange.Tests", "test\DotRange.Tests\DotRange.Tests.csproj", "{F5AF3384-D744-41F7-9433-936D753FD533}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
