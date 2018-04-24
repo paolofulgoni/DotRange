@@ -181,3 +181,7 @@ Range.Open(3, 5).Span(Range.Open(5, 10)); // returns (3, 10)
 Range.Closed(1, 5).Span(Range.Closed(6, 10)); // returns [1, 10]
 ```
 
+## Credits
+
+This small library is a porting to .Net of a few Java classes of the amazing
+[Google Guava](https://github.com/google/guava) library.
