@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/paolofulgoni/DotRange.svg?branch=master)](https://travis-ci.org/paolofulgoni/DotRange)
+
 # DotRange
 
 The Range class for .Net Standard
