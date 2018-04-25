@@ -5,6 +5,10 @@
     <Version>0.1.0</Version>
     <Authors>Paolo Fulgoni</Authors>
     <Company />
+    <Description>The Range class for .Net Standard</Description>
+    <PackageLicenseUrl>https://github.com/paolofulgoni/DotRange/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/paolofulgoni/DotRange</RepositoryUrl>
+    <Copyright>Copyright Paolo Fulgoni 2018</Copyright>
   </PropertyGroup>
 
 </Project>
