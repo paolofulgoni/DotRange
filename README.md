@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/paolofulgoni/DotRange.svg?branch=master)](https://travis-ci.org/paolofulgoni/DotRange) [![NuGet](https://img.shields.io/nuget/v/DotRange.svg)](https://www.nuget.org/packages/DotRange)
+[![build](https://github.com/paolofulgoni/DotRange/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/paolofulgoni/DotRange/actions/workflows/dotnet.yml?query=branch%3Amaster)
+[![NuGet](https://img.shields.io/nuget/v/DotRange.svg)](https://www.nuget.org/packages/DotRange)
 
 # DotRange
 
