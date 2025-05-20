@@ -68,11 +68,11 @@ Bounded on both ends                         | `Bounded(C, BoundType, C, BoundTy
 Unbounded on top (`(a..+∞)` or `[a..+∞)`)    | `DownTo(C, BoundType)`
 Unbounded on bottom (`(-∞..b)` or `(-∞..b]`) | `UpTo(C, BoundType)`
 
-Here, `BoundType` is an enum containing the values `CLOSED` and `OPEN`.
+Here, `BoundType` is an enum containing the values `Closed` and `Open`.
 
 ```cs
 Range.DownTo(4, boundType); // allows you to decide whether or not you want to include 4
-Range.Bounded(1, BoundType.CLOSED, 4, BoundType.OPEN); // another way of writing Range.ClosedOpen(1, 4)
+Range.Bounded(1, BoundType.Closed, 4, BoundType.Open); // another way of writing Range.ClosedOpen(1, 4)
 ```
 
 ## Operations
@@ -95,7 +95,7 @@ To look at the endpoints of a range, `Range` exposes the following methods:
 *   `HasLowerBound()` and `HasUpperBound()`, which check if the range has
     the specified endpoints, or goes on "through infinity."
 *   `LowerBoundType()` and `UpperBoundType()` return the `BoundType` for the
-    corresponding endpoint, which can be either `CLOSED` or `OPEN`. If this
+    corresponding endpoint, which can be either `Closed` or `Open`. If this
     range does not have the specified endpoint, the method throws an
     `InvalidOperationException`.
 *   `LowerEndpoint()` and `UpperEndpoint()` return the endpoints on the
@@ -112,8 +112,8 @@ Range.Open(4, 4).IsEmpty(); // Range.Open throws ArgumentException
 
 Range.Closed(3, 10).LowerEndpoint(); // returns 3
 Range.Open(3, 10).LowerEndpoint(); // returns 3
-Range.Closed(3, 10).LowerBoundType(); // returns CLOSED
-Range.Open(3, 10).UpperBoundType(); // returns OPEN
+Range.Closed(3, 10).LowerBoundType(); // returns Closed
+Range.Open(3, 10).UpperBoundType(); // returns Open
 ```
 
 ### Interval Operations

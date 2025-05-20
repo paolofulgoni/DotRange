@@ -21,10 +21,10 @@ public class RangeTest
         range.Contains(8).Should().BeFalse();
         range.HasLowerBound().Should().BeTrue();
         range.LowerEndpoint().Should().Be(4);
-        range.LowerBoundType().Should().Be(BoundType.OPEN);
+        range.LowerBoundType().Should().Be(BoundType.Open);
         range.HasUpperBound().Should().BeTrue();
         range.UpperEndpoint().Should().Be(8);
-        range.UpperBoundType().Should().Be(BoundType.OPEN);
+        range.UpperBoundType().Should().Be(BoundType.Open);
         range.IsEmpty().Should().BeFalse();
         range.ToString().Should().Be("(4..8)");
     }
@@ -49,10 +49,10 @@ public class RangeTest
         range.Contains(8).Should().BeFalse();
         range.HasLowerBound().Should().BeTrue();
         range.LowerEndpoint().Should().Be(5);
-        range.LowerBoundType().Should().Be(BoundType.CLOSED);
+        range.LowerBoundType().Should().Be(BoundType.Closed);
         range.HasUpperBound().Should().BeTrue();
         range.UpperEndpoint().Should().Be(7);
-        range.UpperBoundType().Should().Be(BoundType.CLOSED);
+        range.UpperBoundType().Should().Be(BoundType.Closed);
         range.IsEmpty().Should().BeFalse();
         range.ToString().Should().Be("[5..7]");
     }
@@ -74,10 +74,10 @@ public class RangeTest
         range.Contains(8).Should().BeFalse();
         range.HasLowerBound().Should().BeTrue();
         range.LowerEndpoint().Should().Be(4);
-        range.LowerBoundType().Should().Be(BoundType.OPEN);
+        range.LowerBoundType().Should().Be(BoundType.Open);
         range.HasUpperBound().Should().BeTrue();
         range.UpperEndpoint().Should().Be(7);
-        range.UpperBoundType().Should().Be(BoundType.CLOSED);
+        range.UpperBoundType().Should().Be(BoundType.Closed);
         range.IsEmpty().Should().BeFalse();
         range.ToString().Should().Be("(4..7]");
     }
@@ -92,10 +92,10 @@ public class RangeTest
         range.Contains(8).Should().BeFalse();
         range.HasLowerBound().Should().BeTrue();
         range.LowerEndpoint().Should().Be(5);
-        range.LowerBoundType().Should().Be(BoundType.CLOSED);
+        range.LowerBoundType().Should().Be(BoundType.Closed);
         range.HasUpperBound().Should().BeTrue();
         range.UpperEndpoint().Should().Be(8);
-        range.UpperBoundType().Should().Be(BoundType.OPEN);
+        range.UpperBoundType().Should().Be(BoundType.Open);
         range.IsEmpty().Should().BeFalse();
         range.ToString().Should().Be("[5..8)");
     }
@@ -121,10 +121,10 @@ public class RangeTest
         range.Contains(5).Should().BeFalse();
         range.HasLowerBound().Should().BeTrue();
         range.LowerEndpoint().Should().Be(4);
-        range.LowerBoundType().Should().Be(BoundType.CLOSED);
+        range.LowerBoundType().Should().Be(BoundType.Closed);
         range.HasUpperBound().Should().BeTrue();
         range.UpperEndpoint().Should().Be(4);
-        range.UpperBoundType().Should().Be(BoundType.CLOSED);
+        range.UpperBoundType().Should().Be(BoundType.Closed);
         range.IsEmpty().Should().BeFalse();
         range.ToString().Should().Be("[4..4]");
     }
@@ -138,10 +138,10 @@ public class RangeTest
         range.Contains(5).Should().BeFalse();
         range.HasLowerBound().Should().BeTrue();
         range.LowerEndpoint().Should().Be(4);
-        range.LowerBoundType().Should().Be(BoundType.CLOSED);
+        range.LowerBoundType().Should().Be(BoundType.Closed);
         range.HasUpperBound().Should().BeTrue();
         range.UpperEndpoint().Should().Be(4);
-        range.UpperBoundType().Should().Be(BoundType.OPEN);
+        range.UpperBoundType().Should().Be(BoundType.Open);
         range.IsEmpty().Should().BeTrue();
         range.ToString().Should().Be("[4..4)");
     }
@@ -155,10 +155,10 @@ public class RangeTest
         range.Contains(5).Should().BeFalse();
         range.HasLowerBound().Should().BeTrue();
         range.LowerEndpoint().Should().Be(4);
-        range.LowerBoundType().Should().Be(BoundType.OPEN);
+        range.LowerBoundType().Should().Be(BoundType.Open);
         range.HasUpperBound().Should().BeTrue();
         range.UpperEndpoint().Should().Be(4);
-        range.UpperBoundType().Should().Be(BoundType.CLOSED);
+        range.UpperBoundType().Should().Be(BoundType.Closed);
         range.IsEmpty().Should().BeTrue();
         range.ToString().Should().Be("(4..4]");
     }
@@ -173,7 +173,7 @@ public class RangeTest
         AssertUnboundedBelow(range);
         range.HasUpperBound().Should().BeTrue();
         range.UpperEndpoint().Should().Be(5);
-        range.UpperBoundType().Should().Be(BoundType.OPEN);
+        range.UpperBoundType().Should().Be(BoundType.Open);
         range.IsEmpty().Should().BeFalse();
         range.ToString().Should().Be("(-\u221e..5)");
     }
@@ -187,7 +187,7 @@ public class RangeTest
         range.Contains(int.MaxValue).Should().BeTrue();
         range.HasLowerBound().Should().BeTrue();
         range.LowerEndpoint().Should().Be(5);
-        range.LowerBoundType().Should().Be(BoundType.OPEN);
+        range.LowerBoundType().Should().Be(BoundType.Open);
         AssertUnboundedAbove(range);
         range.IsEmpty().Should().BeFalse();
         range.ToString().Should().Be("(5..+\u221e)");
@@ -202,7 +202,7 @@ public class RangeTest
         range.Contains(int.MaxValue).Should().BeTrue();
         range.HasLowerBound().Should().BeTrue();
         range.LowerEndpoint().Should().Be(6);
-        range.LowerBoundType().Should().Be(BoundType.CLOSED);
+        range.LowerBoundType().Should().Be(BoundType.Closed);
         AssertUnboundedAbove(range);
         range.IsEmpty().Should().BeFalse();
         range.ToString().Should().Be("[6..+\u221e)");
@@ -218,7 +218,7 @@ public class RangeTest
         AssertUnboundedBelow(range);
         range.HasUpperBound().Should().BeTrue();
         range.UpperEndpoint().Should().Be(4);
-        range.UpperBoundType().Should().Be(BoundType.CLOSED);
+        range.UpperBoundType().Should().Be(BoundType.Closed);
         range.IsEmpty().Should().BeFalse();
         range.ToString().Should().Be("(-\u221e..4]");
     }
@@ -463,7 +463,7 @@ public class RangeTest
     public void Equals()
     {
         Range<int> open1 = Range.Open(1, 5);
-        Range<int> open2 = Range.Bounded(1, BoundType.OPEN, 5, BoundType.OPEN);
+        Range<int> open2 = Range.Bounded(1, BoundType.Open, 5, BoundType.Open);
 
         open1.Should().Be(open1);
         open1.Should().Be(open2);
@@ -485,14 +485,14 @@ public class RangeTest
     [Test]
     public void EquivalentFactories()
     {
-        Range.AtLeast(1).Should().Be(Range.DownTo(1, BoundType.CLOSED));
-        Range.GreaterThan(1).Should().Be(Range.DownTo(1, BoundType.OPEN));
-        Range.AtMost(7).Should().Be(Range.UpTo(7, BoundType.CLOSED));
-        Range.LessThan(7).Should().Be(Range.UpTo(7, BoundType.OPEN));
-        Range.Open(1, 7).Should().Be(Range.Bounded(1, BoundType.OPEN, 7, BoundType.OPEN));
-        Range.OpenClosed(1, 7).Should().Be(Range.Bounded(1, BoundType.OPEN, 7, BoundType.CLOSED));
-        Range.Closed(1, 7).Should().Be(Range.Bounded(1, BoundType.CLOSED, 7, BoundType.CLOSED));
-        Range.ClosedOpen(1, 7).Should().Be(Range.Bounded(1, BoundType.CLOSED, 7, BoundType.OPEN));
+        Range.AtLeast(1).Should().Be(Range.DownTo(1, BoundType.Closed));
+        Range.GreaterThan(1).Should().Be(Range.DownTo(1, BoundType.Open));
+        Range.AtMost(7).Should().Be(Range.UpTo(7, BoundType.Closed));
+        Range.LessThan(7).Should().Be(Range.UpTo(7, BoundType.Open));
+        Range.Open(1, 7).Should().Be(Range.Bounded(1, BoundType.Open, 7, BoundType.Open));
+        Range.OpenClosed(1, 7).Should().Be(Range.Bounded(1, BoundType.Open, 7, BoundType.Closed));
+        Range.Closed(1, 7).Should().Be(Range.Bounded(1, BoundType.Closed, 7, BoundType.Closed));
+        Range.ClosedOpen(1, 7).Should().Be(Range.Bounded(1, BoundType.Closed, 7, BoundType.Open));
     }
 
     [Test]
@@ -502,9 +502,9 @@ public class RangeTest
         lexiRange.Contains("lift").Should().BeTrue();
         Range.LessThan(4.0);
 
-        var boundType = BoundType.CLOSED;
+        var boundType = BoundType.Closed;
         Range.DownTo(4, boundType);
-        Range.Bounded(1, BoundType.CLOSED, 4, BoundType.OPEN);
+        Range.Bounded(1, BoundType.Closed, 4, BoundType.Open);
 
         Range.Closed(1, 3).Contains(2).Should().BeTrue();
         Range.Closed(1, 3).Contains(4).Should().BeFalse();
@@ -519,8 +519,8 @@ public class RangeTest
 
         Range.Closed(3, 10).LowerEndpoint().Should().Be(3);
         Range.Open(3, 10).LowerEndpoint().Should().Be(3);
-        Range.Closed(3, 10).LowerBoundType().Should().Be(BoundType.CLOSED);
-        Range.Open(3, 10).UpperBoundType().Should().Be(BoundType.OPEN);
+        Range.Closed(3, 10).LowerBoundType().Should().Be(BoundType.Closed);
+        Range.Open(3, 10).UpperBoundType().Should().Be(BoundType.Open);
 
         Range.Closed(3, 6).Encloses(Range.Closed(4, 5)).Should().BeTrue();
         Range.Open(3, 6).Encloses(Range.Open(3, 6)).Should().BeTrue();
