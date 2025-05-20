@@ -55,7 +55,7 @@ Range type | Method
 `(-∞..+∞)` | `All()`
 
 ```cs
-Range.Closed("left", "right"); // all strings lexographically between "left" and "right" inclusive
+Range.Closed("left", "right"); // all strings lexicographically between "left" and "right" inclusive
 Range.LessThan(4.0); // double values strictly less than 4
 ```
 
