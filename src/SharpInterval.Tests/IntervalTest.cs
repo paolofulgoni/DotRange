@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+
 using FluentAssertions;
+
 using NUnit.Framework;
 
 namespace SharpInterval.Tests;
@@ -250,7 +252,7 @@ public class IntervalTest
 
         Action act1 = () => interval.UpperEndpoint();
         act1.Should().Throw<InvalidOperationException>();
-            
+
         Action act2 = () => interval.UpperBoundType();
         act2.Should().Throw<InvalidOperationException>();
     }
@@ -325,7 +327,7 @@ public class IntervalTest
 
         interval.Intersection(Interval.AtMost(3)).Should().Be(Interval.OpenClosed(3, 3));
         interval.Intersection(Interval.AtLeast(4)).Should().Be(Interval.ClosedOpen(4, 4));
-        
+
         Action act1 = () => interval.Intersection(Interval.LessThan(3));
         act1.Should().Throw<ArgumentException>();
 
