@@ -7,7 +7,7 @@ namespace SharpInterval;
 public static class Interval
 {
     /// <summary>
-    /// Returns a range that contains all values strictly greater than <paramref name="lower"/> and strictly less
+    /// Returns an interval that contains all values strictly greater than <paramref name="lower"/> and strictly less
     /// than <paramref name="upper"/>.
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than or equal to <paramref name="upper"/>
@@ -18,7 +18,7 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns a range that contains all values greater than or equal to <paramref name="lower"/> and less than
+    /// Returns an interval that contains all values greater than or equal to <paramref name="lower"/> and less than
     /// or equal to <paramref name="upper"/>.
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than <paramref name="upper"/>
@@ -29,7 +29,7 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns a range that contains all values greater than or equal to <paramref name="lower"/> and strictly
+    /// Returns an interval that contains all values greater than or equal to <paramref name="lower"/> and strictly
     /// less than <paramref name="upper"/>.
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than <paramref name="upper"/>
@@ -40,7 +40,7 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns a range that contains all values strictly greater than <paramref name="lower"/> and less than or
+    /// Returns an interval that contains all values strictly greater than <paramref name="lower"/> and less than or
     /// equal to <paramref name="upper"/>.
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than <paramref name="upper"/>
@@ -51,7 +51,7 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns a range that contains any value from <paramref name="lower"/> to <paramref name="upper"/>, where each
+    /// Returns an interval that contains any value from <paramref name="lower"/> to <paramref name="upper"/>, where each
     /// endpoint may be either inclusive (closed) or exclusive (open).
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than <paramref name="upper"/>
@@ -64,7 +64,7 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns a range that contains all values strictly less than <paramref name="endpoint"/>.
+    /// Returns an interval that contains all values strictly less than <paramref name="endpoint"/>.
     /// </summary>
     public static Interval<C> LessThan<C>(C endpoint) where C : IComparable<C>
     {
@@ -72,7 +72,7 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns a range that contains all values less than or equal to <paramref name="endpoint"/>.
+    /// Returns an interval that contains all values less than or equal to <paramref name="endpoint"/>.
     /// </summary>
     public static Interval<C> AtMost<C>(C endpoint) where C : IComparable<C>
     {
@@ -80,7 +80,7 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns a range with no lower bound up to the given endpoint, which may be either inclusive
+    /// Returns an interval with no lower bound up to the given endpoint, which may be either inclusive
     /// (closed) or exclusive (open).
     /// </summary>
     public static Interval<C> UpTo<C>(C endpoint, BoundType boundType) where C : IComparable<C>
@@ -97,7 +97,7 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns a range that contains all values strictly greater than <paramref name="endpoint"/>.
+    /// Returns an interval that contains all values strictly greater than <paramref name="endpoint"/>.
     /// </summary>
     public static Interval<C> GreaterThan<C>(C endpoint) where C : IComparable<C>
     {
@@ -105,7 +105,7 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns a range that contains all values greater than or equal to <paramref name="endpoint"/>.
+    /// Returns an interval that contains all values greater than or equal to <paramref name="endpoint"/>.
     /// </summary>
     public static Interval<C> AtLeast<C>(C endpoint) where C : IComparable<C>
     {
@@ -113,7 +113,7 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns a range from the given endpoint, which may be either inclusive (closed) or exclusive
+    /// Returns an interval from the given endpoint, which may be either inclusive (closed) or exclusive
     /// (open), with no upper bound.
     /// </summary>
     public static Interval<C> DownTo<C>(C endpoint, BoundType boundType) where C : IComparable<C>
@@ -130,7 +130,7 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns a range that contains every value of type <typeparamref name="C"/>.
+    /// Returns an interval that contains every value of type <typeparamref name="C"/>.
     /// </summary>
     public static Interval<C> All<C>() where C : IComparable<C>
     {
@@ -138,8 +138,8 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns a range that contains only the given value. The
-    /// returned range is closed on both ends.
+    /// Returns an interval that contains only the given value. The
+    /// returned interval is closed on both ends.
     /// </summary>
     public static Interval<C> Singleton<C>(C value) where C : IComparable<C>
     {
@@ -148,18 +148,18 @@ public static class Interval
 }
 
 /// <summary>
-/// A range (or "interval") defines the boundaries around a contiguous span of values of some
+/// An interval (or "range") defines the boundaries around a contiguous span of values of some
 /// <c>Comparable</c> type; for example, "integers from 1 to 100 inclusive." Note that it is not
 /// possible to iterate over these contained values.
 /// </summary>
 /// <remarks>
-/// <para>Types of ranges</para>
+/// <para>Types of intervals</para>
 /// 
-/// <para>Each end of the range may be bounded or unbounded. If bounded, there is an associated
-/// endpoint value, and the range is considered to be either open (does not include the
+/// <para>Each end of the interval may be bounded or unbounded. If bounded, there is an associated
+/// endpoint value, and the interval is considered to be either open (does not include the
 /// endpoint) or closed (includes the endpoint) on that side. With three possibilities on each
-/// side, this yields nine basic types of ranges, enumerated below. (Notation: a square bracket
-/// (<c>[ ]</c>) indicates that the range is closed on that side; a parenthesis (<c>( )</c>) means
+/// side, this yields nine basic types of intervals, enumerated below. (Notation: a square bracket
+/// (<c>[ ]</c>) indicates that the interval is closed on that side; a parenthesis (<c>( )</c>) means
 /// it is either open or unbounded. The construct <c>{x | statement</c>} is read "the set of all
 /// x such that statement.")
 /// </para>
@@ -184,8 +184,8 @@ public static class Interval
 /// may be equal only if at least one of the bounds is closed:
 /// 
 /// <list type="bullet">
-/// <item><description><c>[a..a]</c> : a singleton range</description></item>
-/// <item><description><c>[a..a); (a..a]</c> : empty ranges; also valid</description></item>
+/// <item><description><c>[a..a]</c> : a singleton interval</description></item>
+/// <item><description><c>[a..a); (a..a]</c> : empty intervals; also valid</description></item>
 /// <item><description><c>(a..a)</c> : invalid; an exception will be thrown</description></item>
 /// </list>
 /// 
@@ -193,7 +193,7 @@ public static class Interval
 /// 
 /// <list type="bullet">
 /// <item><description>Use immutable value types only, if at all possible. If you must use a mutable type, do
-/// not allow the endpoint instances to mutate after the range is created!</description></item>
+/// not allow the endpoint instances to mutate after the interval is created!</description></item>
 /// <item><description>Your value type's comparison method should be consistent with
 /// <see cref="object.Equals(object)"/> if at all possible. Otherwise, be aware that concepts used throughout this
 /// documentation such as "equal", "same", "unique" and so on actually refer to whether
@@ -205,7 +205,7 @@ public static class Interval
 ///
 /// <list type="bullet">
 /// <item><description>Instances of this type are obtained using the static factory methods in this class.</description></item>
-/// <item><description>Ranges are convex: whenever two values are contained, all values in between them
+/// <item><description>Intervals are convex: whenever two values are contained, all values in between them
 /// must also be contained. More formally, for any <c>c1 <= c2 <= c3</c> of type <typeparamref name="C"/>,
 /// <c>r.contains(c1) && r.contains(c3)</c> implies <c>r.contains(c2)</c>. This means that a
 /// <c>Interval&lt;Integer&gt;</c> can never be used to represent, say, "all prime numbers from

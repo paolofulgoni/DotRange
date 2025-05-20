@@ -28,7 +28,7 @@ internal class Cut
 }
 
 /// <summary>
-/// Implementation detail for the internal structure of <seealso cref="Range{C}"/> instances. Represents a unique
+/// Implementation detail for the internal structure of <seealso cref="Interval{C}"/> instances. Represents a unique
 /// way of "cutting" a "number line" (actually of instances of type <typeparamref name="C"/>, not necessarily
 /// "numbers") into two sections; this can be done below a certain value, above a certain value,
 /// below all values or above all values. With this object defined in this way, an interval can
@@ -107,7 +107,7 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
         }
         internal override C Endpoint()
         {
-            throw new InvalidOperationException("range unbounded on this side");
+            throw new InvalidOperationException("interval unbounded on this side");
         }
         internal override bool IsLessThan(C value)
         {
@@ -153,7 +153,7 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
         }
         internal override C Endpoint()
         {
-            throw new InvalidOperationException("range unbounded on this side");
+            throw new InvalidOperationException("interval unbounded on this side");
         }
         internal override bool IsLessThan(C value)
         {
