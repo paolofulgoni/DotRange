@@ -10,7 +10,7 @@ public static class Range
     /// Returns a range that contains all values strictly greater than <paramref name="lower"/> and strictly less
     /// than <paramref name="upper"/>.
     /// </summary>
-    /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than <i>or equal to</i> <paramref name="upper"/>
+    /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than or equal to <paramref name="upper"/>
     /// </exception>
     public static Range<C> Open<C>(C lower, C upper) where C : IComparable<C>
     {
@@ -148,20 +148,20 @@ public static class Range
 }
 
 /// <summary>
-/// A range (or "interval") defines the <i>boundaries</i> around a contiguous span of values of some
+/// A range (or "interval") defines the boundaries around a contiguous span of values of some
 /// <c>Comparable</c> type; for example, "integers from 1 to 100 inclusive." Note that it is not
-/// possible to <i>iterate</i> over these contained values. 
+/// possible to iterate over these contained values.
 /// </summary>
 /// <remarks>
-/// <h3>Types of ranges</h3>
+/// <para>Types of ranges</para>
 /// 
 /// <para>Each end of the range may be bounded or unbounded. If bounded, there is an associated
-/// <i>endpoint</i> value, and the range is considered to be either <i>open</i> (does not include the
-/// endpoint) or <i>closed</i> (includes the endpoint) on that side. With three possibilities on each
+/// endpoint value, and the range is considered to be either open (does not include the
+/// endpoint) or closed (includes the endpoint) on that side. With three possibilities on each
 /// side, this yields nine basic types of ranges, enumerated below. (Notation: a square bracket
 /// (<c>[ ]</c>) indicates that the range is closed on that side; a parenthesis (<c>( )</c>) means
 /// it is either open or unbounded. The construct <c>{x | statement</c>} is read "the set of all
-/// <i>x</i> such that <i>statement</i>.")
+/// x such that statement.")
 /// </para>
 /// <para>
 /// Range Types
@@ -183,38 +183,38 @@ public static class Range
 /// <para>When both endpoints exist, the upper endpoint may not be less than the lower. The endpoints
 /// may be equal only if at least one of the bounds is closed:
 /// 
-/// <ul>
-///   <li><c>[a..a]</c> : a singleton range
-///   <li><c>[a..a); (a..a]</c> : empty ranges; also valid
-///   <li><c>(a..a)</c> : <b>invalid</b>; an exception will be thrown
-/// </ul>
+/// <list type="bullet">
+/// <item><description><c>[a..a]</c> : a singleton range</description></item>
+/// <item><description><c>[a..a); (a..a]</c> : empty ranges; also valid</description></item>
+/// <item><description><c>(a..a)</c> : invalid; an exception will be thrown</description></item>
+/// </list>
 /// 
-/// <h3>Warnings</h3>
+/// <para>Warnings</para>
 /// 
-/// <ul>
-///   <li>Use immutable value types only, if at all possible. If you must use a mutable type, <b>do
-///       not</b> allow the endpoint instances to mutate after the range is created!
-///   <li>Your value type's comparison method should be {@link Comparable consistent with
-///       equals} if at all possible. Otherwise, be aware that concepts used throughout this
-///       documentation such as "equal", "same", "unique" and so on actually refer to whether
-///       <seealso cref="IComparable{T}.CompareTo(T)"/> returns zero, not whether <seealso cref="Object.Equals(object)"/>
-///       returns <c>true</c>.
-/// </ul>
+/// <list type="bullet">
+/// <item><description>Use immutable value types only, if at all possible. If you must use a mutable type, do
+/// not allow the endpoint instances to mutate after the range is created!</description></item>
+/// <item><description>Your value type's comparison method should be consistent with
+/// <see cref="object.Equals(object)"/> if at all possible. Otherwise, be aware that concepts used throughout this
+/// documentation such as "equal", "same", "unique" and so on actually refer to whether
+/// <seealso cref="IComparable{T}.CompareTo(T)"/> returns zero, not whether <seealso cref="object.Equals(object)"/>
+/// returns <c>true</c>.</description></item>
+/// </list>
 /// 
-/// <h3>Other notes</h3>
-/// 
-/// <ul>
-///   <li>Instances of this type are obtained using the static factory methods in this class.
-///   <li>Ranges are <i>convex</i>: whenever two values are contained, all values in between them
-///       must also be contained. More formally, for any <c>c1 <= c2 <= c3</c> of type <typeparamref name="C"/>,
-///       <c>r.contains(c1) && r.contains(c3)</c> implies <c>r.contains(c2)</c>). This means that a
-///       <c>Range<Integer></c> can never be used to represent, say, "all <i>prime</i> numbers from
-///       1 to 100."
-///   <li>Terminology note: a range <c>a</c> is said to be the <i>maximal</i> range having property
-///       <i>P</i> if, for all ranges <c>b</c> also having property <i>P</i>, <c>a.encloses(b)</c>.
-///       Likewise, <c>a</c> is <i>minimal</i> when <c>b.encloses(a)</c> for all <c>b</c> having
-///       property <i>P</i>. See, for example, the definition of <seealso cref="Range{C}.Intersection(Range{C})"/>.
-/// </ul>
+/// <para>Other notes</para>
+///
+/// <list type="bullet">
+/// <item><description>Instances of this type are obtained using the static factory methods in this class.</description></item>
+/// <item><description>Ranges are convex: whenever two values are contained, all values in between them
+/// must also be contained. More formally, for any <c>c1 <= c2 <= c3</c> of type <typeparamref name="C"/>,
+/// <c>r.contains(c1) && r.contains(c3)</c> implies <c>r.contains(c2)</c>. This means that a
+/// <c>Range&lt;Integer&gt;</c> can never be used to represent, say, "all prime numbers from
+/// 1 to 100."</description></item>
+/// <item><description>Terminology note: a range <c>a</c> is said to be the maximal range having property
+/// <c>P</c> if, for all ranges <c>b</c> also having property <c>P</c>, <c>a.encloses(b)</c>.
+/// Likewise, <c>a</c> is minimal when <c>b.encloses(a)</c> for all <c>b</c> having
+/// property <c>P</c>. See, for example, the definition of <seealso cref="Range{C}.Intersection(Range{C})"/>.</description></item>
+/// </list>
 /// 
 /// </para>
 /// </remarks>
@@ -294,10 +294,10 @@ public sealed class Range<C> where C : IComparable<C>
 
     /// <summary>
     /// Returns <c>true</c> if this range is of the form <c>[v..v)</c> or <c>(v..v]</c>. (This does
-    /// not encompass ranges of the form <c>(v..v)</c>, because such ranges are <i>invalid</i> and
+    /// not encompass ranges of the form <c>(v..v)</c>, because such ranges are invalid and
     /// can't be constructed at all.)
     /// 
-    /// <para>Note that certain discrete ranges such as the integer range <c>(3..4)</c> are <b>not</b>
+    /// <para>Note that certain discrete ranges such as the integer range <c>(3..4)</c> are not
     /// considered empty, even though they contain no actual values.
     /// </para>
     /// </summary>
@@ -336,23 +336,22 @@ public sealed class Range<C> where C : IComparable<C>
     /// Returns <c>true</c> if the bounds of <c>other</c> do not extend outside the bounds of this
     /// range. Examples:
     /// 
-    /// <ul>
-    ///   <li><c>[3..6]</c> encloses <c>[4..5]</c>
-    ///   <li><c>(3..6)</c> encloses <c>(3..6)</c>
-    ///   <li><c>[3..6]</c> encloses <c>[4..4)</c> (even though the latter is empty)
-    ///   <li><c>(3..6]</c> does not enclose <c>[3..6]</c>
-    ///   <li><c>[4..5]</c> does not enclose <c>(3..6)</c> (even though it contains every value
-    ///       contained by the latter range)
-    ///   <li><c>[3..6]</c> does not enclose <c>(1..1]</c> (even though it contains every value
-    ///       contained by the latter range)
-    /// </ul>
+    /// <list type="bullet">
+    /// <item><description><c>[3..6]</c> encloses <c>[4..5]</c></description></item>
+    /// <item><description><c>(3..6)</c> encloses <c>(3..6)</c></description></item>
+    /// <item><description><c>[3..6]</c> encloses <c>[4..4)</c> (even though the latter is empty)</description></item>
+    /// <item><description><c>(3..6]</c> does not enclose <c>[3..6]</c></description></item>
+    /// <item><description><c>[4..5]</c> does not enclose <c>(3..6)</c> (even though it contains every value
+    /// contained by the latter range)</description></item>
+    /// <item><description><c>[3..6]</c> does not enclose <c>(1..1]</c> (even though it contains every value
+    /// contained by the latter range)</description></item>
+    /// </list>
     /// 
-    /// <para>Note that if <c>a.encloses(b)</c>, then <c>b.contains(v)</c> implies {@code
-    /// a.contains(v)}, but as the last two examples illustrate, the converse is not always true.
+    /// <para>Note that if <c>a.encloses(b)</c>, then <c>b.contains(v)</c> implies <c>a.contains(v)</c>, but as the last two examples illustrate, the converse is not always true.
     /// 
     /// </para>
     /// <para>Being reflexive, antisymmetric and transitive, the <c>encloses</c> relation defines a
-    /// <i>partial order</i> over ranges. There exists a unique maximal range
+    /// partial order over ranges. There exists a unique maximal range
     /// according to this relation, and also numerous minimal ranges. Enclosure
     /// also implies connectedness.
     /// </para>
@@ -363,17 +362,16 @@ public sealed class Range<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if there exists a (possibly empty) range which is {@link #encloses
-    /// enclosed} by both this range and <c>other</c>.
+    /// Returns <c>true</c> if there exists a (possibly empty) range that is enclosed by both this range and <paramref name="other"/>.
     /// 
     /// <para>For example,
     /// 
-    /// <ul>
-    ///   <li><c>[2, 4)</c> and <c>[5, 7)</c> are not connected
-    ///   <li><c>[2, 4)</c> and <c>[3, 5)</c> are connected, because both enclose <c>[3, 4)</c>
-    ///   <li><c>[2, 4)</c> and <c>[4, 6)</c> are connected, because both enclose the empty range
-    ///       <c>[4, 4)</c>
-    /// </ul>
+    /// <list type="bullet">
+    /// <item><description><c>[2, 4)</c> and <c>[5, 7)</c> are not connected</description></item>
+    /// <item><description><c>[2, 4)</c> and <c>[3, 5)</c> are connected, because both enclose <c>[3, 4)</c></description></item>
+    /// <item><description><c>[2, 4)</c> and <c>[4, 6)</c> are connected, because both enclose the empty range
+    /// <c>[4, 4)</c></description></item>
+    /// </list>
     /// 
     /// </para>
     /// <para>Note that this range and <c>other</c> have a well-defined union and
@@ -381,14 +379,14 @@ public sealed class Range<C> where C : IComparable<C>
     /// method returns <c>true</c>.
     /// 
     /// </para>
-    /// <para>The connectedness relation is both reflexive and symmetric, but does not form an {@linkplain
-    /// Equivalence equivalence relation} as it is not transitive.
+    /// <para>The connectedness relation is both reflexive and symmetric, but it is not an equivalence
+    /// relation because it is not transitive.
     /// 
     /// </para>
     /// <para>Note that certain discrete ranges are not considered connected, even though there are no
     /// elements "between them." For example, <c>[3, 5]</c> is not considered connected to <c>[6,
-    /// 10]</c>. In these cases, it may be desirable for both input ranges to be preprocessed with {@link
-    /// #canonical(DiscreteDomain)} before testing for connectedness.
+    /// 10]</c>. In these cases, it may be desirable for both input ranges to be preprocessed with a canonical
+    /// discrete domain before testing for connectedness.
     /// </para>
     /// </summary>
     public bool IsConnected(Range<C> other)
@@ -397,18 +395,15 @@ public sealed class Range<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns the maximal range enclosed by both this range and {@code
-    /// connectedRange}, if such a range exists.
+    /// Returns the maximal range enclosed by both this range and <paramref name="connectedRange"/>, if such a range exists.
     /// 
     /// <para>For example, the intersection of <c>[1..5]</c> and <c>(3..7)</c> is <c>(3..5]</c>. The
     /// resulting range may be empty; for example, <c>[1..5)</c> intersected with <c>[5..7)</c>
     /// yields the empty range <c>[5..5)</c>.
     /// 
     /// </para>
-    /// <para>The intersection exists if and only if the two ranges are {@link #isConnected
-    /// connected}.
-    /// 
-    /// </para>
+    /// <para>The intersection exists if and only if the two ranges are connected
+    /// (<see cref="IsConnected"/>).</para>
     /// <para>The intersection operation is commutative, associative and idempotent, and its identity
     /// element is <seealso cref="Range.All{C}"/>).
     /// 
@@ -439,8 +434,8 @@ public sealed class Range<C> where C : IComparable<C>
     /// Returns the minimal range that encloses both this range and <paramref name="other"/>.
     /// For example, the span of <c>[1..3]</c> and <c>(5..7)</c> is <c>[1..7)</c>.
     /// 
-    /// <para><i>If</i> the input ranges are connected, the returned range can
-    /// also be called their <i>union</i>. If they are not, note that the span might contain values
+    /// <para>If the input ranges are connected, the returned range can
+    /// also be called their union. If they are not, note that the span might contain values
     /// that are not contained in either input range.
     /// 
     /// </para>
@@ -470,7 +465,7 @@ public sealed class Range<C> where C : IComparable<C>
 
     /// <summary>
     /// Returns <c>true</c> if <c>object</c> is a range having the same endpoints and bound types as
-    /// this range. Note that discrete ranges such as <c>(1..4)</c> and <c>[2..3]</c> are <b>not</b>
+    /// this range. Note that discrete ranges such as <c>(1..4)</c> and <c>[2..3]</c> are not
     /// equal to one another, despite the fact that they each contain precisely the same set of values.
     /// Similarly, empty ranges are not equal unless they have exactly the same representation, so
     /// <c>[3..3)</c>, <c>(3..3]</c>, <c>(4..4]</c> are all unequal.
