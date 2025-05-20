@@ -148,7 +148,7 @@ public static class Interval
 }
 
 /// <summary>
-/// An interval (or "range") defines the boundaries around a contiguous span of values of some
+/// An interval (sometimes called a range) defines the boundaries around a contiguous span of values of some
 /// <c>Comparable</c> type; for example, "integers from 1 to 100 inclusive." Note that it is not
 /// possible to iterate over these contained values.
 /// </summary>
@@ -210,8 +210,8 @@ public static class Interval
 /// <c>r.contains(c1) && r.contains(c3)</c> implies <c>r.contains(c2)</c>. This means that a
 /// <c>Interval&lt;Integer&gt;</c> can never be used to represent, say, "all prime numbers from
 /// 1 to 100."</description></item>
-/// <item><description>Terminology note: a range <c>a</c> is said to be the maximal range having property
-/// <c>P</c> if, for all ranges <c>b</c> also having property <c>P</c>, <c>a.encloses(b)</c>.
+/// <item><description>Terminology note: an interval <c>a</c> is said to be the maximal interval having property
+/// <c>P</c> if, for all intervals <c>b</c> also having property <c>P</c>, <c>a.encloses(b)</c>.
 /// Likewise, <c>a</c> is minimal when <c>b.encloses(a)</c> for all <c>b</c> having
 /// property <c>P</c>. See, for example, the definition of <seealso cref="Interval{C}.Intersection(Interval{C})"/>.</description></item>
 /// </list>
@@ -231,12 +231,12 @@ public sealed class Interval<C> where C : IComparable<C>
 
         if (lowerBound.CompareTo(upperBound) > 0 || lowerBound == Cut.AboveAll<C>() || upperBound == Cut.BelowAll<C>())
         {
-            throw new ArgumentException("Invalid range: " + ToString(lowerBound, upperBound));
+            throw new ArgumentException("Invalid interval: " + ToString(lowerBound, upperBound));
         }
     }
 
     /// <summary>
-    /// Returns <c>true</c> if this range has a lower endpoint.
+    /// Returns <c>true</c> if this interval has a lower endpoint.
     /// </summary>
     public bool HasLowerBound()
     {
@@ -244,9 +244,9 @@ public sealed class Interval<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns the lower endpoint of this range.
+    /// Returns the lower endpoint of this interval.
     /// </summary>
-    /// <exception cref="InvalidOperationException"> if this range is unbounded below
+    /// <exception cref="InvalidOperationException"> if this interval is unbounded below
     /// (that is, <seealso cref="Interval{C}.HasLowerBound"/> returns <c>false</c>)</exception>
     public C LowerEndpoint()
     {
@@ -254,10 +254,10 @@ public sealed class Interval<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns the type of this range's lower bound: <seealso cref="BoundType.Closed"/> if the range includes
+    /// Returns the type of this interval's lower bound: <seealso cref="BoundType.Closed"/> if the interval includes
     /// its lower endpoint, <seealso cref="BoundType.Open"/> if it does not.
     /// </summary>
-    /// <exception cref="InvalidOperationException"> if this range is unbounded below
+    /// <exception cref="InvalidOperationException"> if this interval is unbounded below
     /// (that is, <seealso cref="Interval{C}.HasLowerBound"/> returns <c>false</c>)</exception>
     public BoundType LowerBoundType()
     {
@@ -265,16 +265,16 @@ public sealed class Interval<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if this range has an upper endpoint. </summary>
+    /// Returns <c>true</c> if this interval has an upper endpoint. </summary>
     public bool HasUpperBound()
     {
         return _upperBound != Cut.AboveAll<C>();
     }
 
     /// <summary>
-    /// Returns the upper endpoint of this range.
+    /// Returns the upper endpoint of this interval.
     /// </summary>
-    /// <exception cref="InvalidOperationException"> if this range is unbounded above 
+    /// <exception cref="InvalidOperationException"> if this interval is unbounded above
     /// (that is, <seealso cref="Interval{C}.HasUpperBound"/> returns <c>false</c>)</exception>
     public C UpperEndpoint()
     {
@@ -282,10 +282,10 @@ public sealed class Interval<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns the type of this range's upper bound: <seealso cref="BoundType.Closed"/> if the range includes
+    /// Returns the type of this interval's upper bound: <seealso cref="BoundType.Closed"/> if the interval includes
     /// its upper endpoint, <seealso cref="BoundType.Open"/> if it does not.
     /// </summary>
-    /// <exception cref="InvalidOperationException"> if this range is unbounded above 
+    /// <exception cref="InvalidOperationException"> if this interval is unbounded above
     /// (that is, <seealso cref="Interval{C}.HasUpperBound"/> returns <c>false</c>)</exception>
     public BoundType UpperBoundType()
     {
@@ -293,11 +293,11 @@ public sealed class Interval<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if this range is of the form <c>[v..v)</c> or <c>(v..v]</c>. (This does
-    /// not encompass ranges of the form <c>(v..v)</c>, because such ranges are invalid and
+    /// Returns <c>true</c> if this interval is of the form <c>[v..v)</c> or <c>(v..v]</c>. (This does
+    /// not encompass intervals of the form <c>(v..v)</c>, because such intervals are invalid and
     /// can't be constructed at all.)
     /// 
-    /// <para>Note that certain discrete ranges such as the integer range <c>(3..4)</c> are not
+    /// <para>Note that certain discrete intervals such as the integer interval <c>(3..4)</c> are not
     /// considered empty, even though they contain no actual values.
     /// </para>
     /// </summary>
@@ -307,8 +307,8 @@ public sealed class Interval<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if <c>value</c> is within the bounds of this range. For example, on the
-    /// range <c>[0..2)</c>, <c>contains(1)</c> returns <c>true</c>, while <c>contains(2)</c>
+    /// Returns <c>true</c> if <c>value</c> is within the bounds of this interval. For example, on the
+    /// interval <c>[0..2)</c>, <c>contains(1)</c> returns <c>true</c>, while <c>contains(2)</c>
     /// returns <c>false</c>.
     /// </summary>
     public bool Contains(C value)
@@ -318,7 +318,7 @@ public sealed class Interval<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if every element in <c>values</c> is contained in this range.
+    /// Returns <c>true</c> if every element in <c>values</c> is contained in this interval.
     /// </summary>
     public bool ContainsAll<T1>(IEnumerable<T1> values) where T1 : C
     {
@@ -334,7 +334,7 @@ public sealed class Interval<C> where C : IComparable<C>
 
     /// <summary>
     /// Returns <c>true</c> if the bounds of <c>other</c> do not extend outside the bounds of this
-    /// range. Examples:
+    /// interval. Examples:
     /// 
     /// <list type="bullet">
     /// <item><description><c>[3..6]</c> encloses <c>[4..5]</c></description></item>
@@ -342,17 +342,17 @@ public sealed class Interval<C> where C : IComparable<C>
     /// <item><description><c>[3..6]</c> encloses <c>[4..4)</c> (even though the latter is empty)</description></item>
     /// <item><description><c>(3..6]</c> does not enclose <c>[3..6]</c></description></item>
     /// <item><description><c>[4..5]</c> does not enclose <c>(3..6)</c> (even though it contains every value
-    /// contained by the latter range)</description></item>
+    /// contained by the latter interval)</description></item>
     /// <item><description><c>[3..6]</c> does not enclose <c>(1..1]</c> (even though it contains every value
-    /// contained by the latter range)</description></item>
+    /// contained by the latter interval)</description></item>
     /// </list>
     /// 
     /// <para>Note that if <c>a.encloses(b)</c>, then <c>b.contains(v)</c> implies <c>a.contains(v)</c>, but as the last two examples illustrate, the converse is not always true.
     /// 
     /// </para>
     /// <para>Being reflexive, antisymmetric and transitive, the <c>encloses</c> relation defines a
-    /// partial order over ranges. There exists a unique maximal range
-    /// according to this relation, and also numerous minimal ranges. Enclosure
+    /// partial order over intervals. There exists a unique maximal interval
+    /// according to this relation, and also numerous minimal intervals. Enclosure
     /// also implies connectedness.
     /// </para>
     /// </summary>
@@ -362,20 +362,20 @@ public sealed class Interval<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if there exists a (possibly empty) range that is enclosed by both this range and <paramref name="other"/>.
+    /// Returns <c>true</c> if there exists a (possibly empty) interval that is enclosed by both this interval and <paramref name="other"/>.
     /// 
     /// <para>For example,
     /// 
     /// <list type="bullet">
     /// <item><description><c>[2, 4)</c> and <c>[5, 7)</c> are not connected</description></item>
     /// <item><description><c>[2, 4)</c> and <c>[3, 5)</c> are connected, because both enclose <c>[3, 4)</c></description></item>
-    /// <item><description><c>[2, 4)</c> and <c>[4, 6)</c> are connected, because both enclose the empty range
+    /// <item><description><c>[2, 4)</c> and <c>[4, 6)</c> are connected, because both enclose the empty interval
     /// <c>[4, 4)</c></description></item>
     /// </list>
     /// 
     /// </para>
-    /// <para>Note that this range and <c>other</c> have a well-defined union and
-    /// intersection (as a single, possibly-empty range) if and only if this
+    /// <para>Note that this interval and <c>other</c> have a well-defined union and
+    /// intersection (as a single, possibly-empty interval) if and only if this
     /// method returns <c>true</c>.
     /// 
     /// </para>
@@ -383,9 +383,9 @@ public sealed class Interval<C> where C : IComparable<C>
     /// relation because it is not transitive.
     /// 
     /// </para>
-    /// <para>Note that certain discrete ranges are not considered connected, even though there are no
+    /// <para>Note that certain discrete intervals are not considered connected, even though there are no
     /// elements "between them." For example, <c>[3, 5]</c> is not considered connected to <c>[6,
-    /// 10]</c>. In these cases, it may be desirable for both input ranges to be preprocessed with a canonical
+    /// 10]</c>. In these cases, it may be desirable for both input intervals to be preprocessed with a canonical
     /// discrete domain before testing for connectedness.
     /// </para>
     /// </summary>
@@ -395,14 +395,14 @@ public sealed class Interval<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns the maximal range enclosed by both this range and <paramref name="connectedRange"/>, if such a range exists.
+    /// Returns the maximal interval enclosed by both this interval and <paramref name="connectedRange"/>, if such an interval exists.
     /// 
     /// <para>For example, the intersection of <c>[1..5]</c> and <c>(3..7)</c> is <c>(3..5]</c>. The
-    /// resulting range may be empty; for example, <c>[1..5)</c> intersected with <c>[5..7)</c>
-    /// yields the empty range <c>[5..5)</c>.
+    /// resulting interval may be empty; for example, <c>[1..5)</c> intersected with <c>[5..7)</c>
+    /// yields the empty interval <c>[5..5)</c>.
     /// 
     /// </para>
-    /// <para>The intersection exists if and only if the two ranges are connected
+    /// <para>The intersection exists if and only if the two intervals are connected
     /// (<see cref="IsConnected"/>).</para>
     /// <para>The intersection operation is commutative, associative and idempotent, and its identity
     /// element is <seealso cref="Interval.All{C}"/>).
@@ -431,16 +431,16 @@ public sealed class Interval<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns the minimal range that encloses both this range and <paramref name="other"/>.
+    /// Returns the minimal interval that encloses both this interval and <paramref name="other"/>.
     /// For example, the span of <c>[1..3]</c> and <c>(5..7)</c> is <c>[1..7)</c>.
     /// 
-    /// <para>If the input ranges are connected, the returned range can
+    /// <para>If the input intervals are connected, the returned interval can
     /// also be called their union. If they are not, note that the span might contain values
-    /// that are not contained in either input range.
+    /// that are not contained in either input interval.
     /// 
     /// </para>
     /// <para>Like <seealso cref="Interval{C}.Intersection(Interval{C})"/>, this operation is commutative, associative
-    /// and idempotent. Unlike it, it is always well-defined for any two input ranges.
+    /// and idempotent. Unlike it, it is always well-defined for any two input intervals.
     /// </para>
     /// </summary>
     public Interval<C> Span(Interval<C> other)
@@ -464,10 +464,10 @@ public sealed class Interval<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if <c>object</c> is a range having the same endpoints and bound types as
-    /// this range. Note that discrete ranges such as <c>(1..4)</c> and <c>[2..3]</c> are not
+    /// Returns <c>true</c> if <c>object</c> is an interval having the same endpoints and bound types as
+    /// this interval. Note that discrete intervals such as <c>(1..4)</c> and <c>[2..3]</c> are not
     /// equal to one another, despite the fact that they each contain precisely the same set of values.
-    /// Similarly, empty ranges are not equal unless they have exactly the same representation, so
+    /// Similarly, empty intervals are not equal unless they have exactly the same representation, so
     /// <c>[3..3)</c>, <c>(3..3]</c>, <c>(4..4]</c> are all unequal.
     /// </summary>
     public override bool Equals(object? other)
@@ -480,7 +480,7 @@ public sealed class Interval<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns a hash code for this range.
+    /// Returns a hash code for this interval.
     /// </summary>
     public override int GetHashCode()
     {
@@ -488,7 +488,7 @@ public sealed class Interval<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns a string representation of this range, such as <c>"[3..5)"</c> (other examples are
+    /// Returns a string representation of this interval, such as <c>"[3..5)"</c> (other examples are
     /// listed in the class documentation).
     /// </summary>
     public override string ToString()
