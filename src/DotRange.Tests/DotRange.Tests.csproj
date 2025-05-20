@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DotRange\DotRange.csproj" />
+    <ProjectReference Include="..\DotRange\DotRange.csproj" />
   </ItemGroup>
 
 </Project>

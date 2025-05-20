@@ -1,9 +1,9 @@
-﻿using FluentAssertions;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Linq;
+using FluentAssertions;
+using NUnit.Framework;
 
-namespace DotRange
+namespace DotRange.Tests
 {
     /// <summary>
     /// Unit test for <seealso cref="Range"/>.
