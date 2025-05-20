@@ -9,6 +9,7 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/paolofulgoni/DotRange</RepositoryUrl>
     <Copyright>Copyright Paolo Fulgoni 2018</Copyright>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
 </Project>
