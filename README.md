@@ -7,14 +7,14 @@ The Interval class for .Net Standard
 
 ## Introduction
 
-A range, sometimes known as an interval, is a convex (informally, "contiguous"
+An interval, sometimes known as a range, is a convex (informally, "contiguous"
 or "unbroken") portion of a particular domain. Formally, convexity means that
-for any `a <= b <= c`, `range.Contains(a) && range.Contains(c)` implies that
-`range.Contains(b)`.
+for any `a <= b <= c`, `interval.Contains(a) && interval.Contains(c)` implies that
+`interval.Contains(b)`.
 
 The word "range" is a common synonym for "interval", but the name `Interval` is used here to avoid clashes with `System.Range`.
 
-Ranges may "extend to infinity" -- for example, the range `x > 3` contains
+Intervals may "extend to infinity" -- for example, the interval `x > 3` contains
 arbitrarily large values -- or may be finitely constrained, for example `2 <= x
 < 5`. We will use the more compact notation, familiar to programmers with a math
 background:
@@ -34,11 +34,11 @@ SharpInterval's notion of `Interval` requires that the upper endpoint may not be
 the lower endpoint. The endpoints may be equal only if at least one of the
 bounds is closed:
 
-*   `[a..a]`: singleton range
+*   `[a..a]`: singleton interval
 *   `[a..a); (a..a]`: empty, but valid
 *   `(a..a)`: invalid
 
-A range in SharpInterval has the type `Interval<C>`. All ranges are *immutable*.
+An interval in SharpInterval has the type `Interval<C>`. All intervals are *immutable*.
 
 ## Building Intervals
 
@@ -92,18 +92,18 @@ Interval.Closed(1, 4).ContainsAll(new int[] { 1, 2, 3 }); // returns true
 
 ### Query Operations
 
-To look at the endpoints of a range, `Interval` exposes the following methods:
+To look at the endpoints of an interval, `Interval` exposes the following methods:
 
-*   `HasLowerBound()` and `HasUpperBound()`, which check if the range has
+*   `HasLowerBound()` and `HasUpperBound()`, which check if the interval has
     the specified endpoints, or goes on "through infinity."
 *   `LowerBoundType()` and `UpperBoundType()` return the `BoundType` for the
     corresponding endpoint, which can be either `Closed` or `Open`. If this
-    range does not have the specified endpoint, the method throws an
+    interval does not have the specified endpoint, the method throws an
     `InvalidOperationException`.
 *   `LowerEndpoint()` and `UpperEndpoint()` return the endpoints on the
-    specified end, or throw an `InvalidOperationException` if the range does not
+    specified end, or throw an `InvalidOperationException` if the interval does not
     have the specified endpoint.
-*   `IsEmpty()` tests if the range is empty, that is, it has the form `[a,a)`
+*   `IsEmpty()` tests if the interval is empty, that is, it has the form `[a,a)`
     or `(a,a]`.
 
 ```cs
@@ -122,8 +122,8 @@ Interval.Open(3, 10).UpperBoundType(); // returns Open
 
 #### `Encloses`
 
-The most basic relation on ranges is `Encloses(Interval)`, which is true if the
-bounds of the inner range do not extend outside the bounds of the outer range.
+The most basic relation on intervals is `Encloses(Interval)`, which is true if the
+bounds of the inner interval do not extend outside the bounds of the outer interval.
 This is solely dependent on comparisons between the endpoints!
 
 *   `[3..6]` encloses `[4..5]`
@@ -131,19 +131,19 @@ This is solely dependent on comparisons between the endpoints!
 *   `[3..6]` encloses `[4..4)` (even though the latter is empty)
 *   `(3..6]` does not enclose `[3..6]`
 *   `[4..5]` does not enclose `(3..6)` **even though it contains every value
-    contained by the latter range**
+    contained by the latter interval**
 *   `[3..6]` does not enclose `(1..1]` **even though it contains every value
-    contained by the latter range**
+    contained by the latter interval**
 
 Given this, `Interval` provides the following operations:
 
 #### `IsConnected`
 
-`Interval.IsConnected(Interval)`, which tests if these ranges are *connected*.
-Specifically, `isConnected` tests if there is some range enclosed by both of
-these ranges, but this is equivalent to the mathematical definition that the
-union of the ranges must form a connected set (except in the special case of
-empty ranges).
+`Interval.IsConnected(Interval)`, which tests if these intervals are *connected*.
+Specifically, `isConnected` tests if there is some interval enclosed by both of
+these intervals, but this is equivalent to the mathematical definition that the
+union of the intervals must form a connected set (except in the special case of
+empty intervals).
 
 `IsConnected` is a reflexive, symmetric relation.
 
@@ -157,9 +157,9 @@ Interval.Closed(1, 5).IsConnected(Interval.Closed(6, 10)); // returns false
 
 #### `Intersection`
 
-`Interval.Intersection(Interval)` returns the maximal range enclosed by both this
-range and other (which exists iff these ranges are connected), or if no such
-range exists, throws an `ArgumentException`.
+`Interval.Intersection(Interval)` returns the maximal interval enclosed by both this
+interval and other (which exists iff these intervals are connected), or if no such
+interval exists, throws an `ArgumentException`.
 
 `Intersection` is a commutative, associative operation.
 
@@ -173,8 +173,8 @@ Interval.Closed(1, 5).Intersection(Interval.Closed(6, 10)); // throws AE
 
 #### `Span`
 
-`Interval.Span(Interval)` returns the minimal range that encloses both this range
-and other. If the ranges are both connected, this is their union.
+`Interval.Span(Interval)` returns the minimal interval that encloses both this interval
+and other. If the intervals are both connected, this is their union.
 
 `Span` is a commutative, associative and closed operation.
 
