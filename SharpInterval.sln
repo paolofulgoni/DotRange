@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotRange", "src\DotRange\DotRange.csproj", "{730A038E-2E92-4E81-AB0A-D19F11D0A0F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpInterval", "src\SharpInterval\SharpInterval.csproj", "{730A038E-2E92-4E81-AB0A-D19F11D0A0F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotRange.Tests", "src\DotRange.Tests\DotRange.Tests.csproj", "{48E15AB0-636B-4E4C-903D-6E81446ECAA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpInterval.Tests", "src\SharpInterval.Tests\SharpInterval.Tests.csproj", "{48E15AB0-636B-4E4C-903D-6E81446ECAA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

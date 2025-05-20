@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace DotRange;
+namespace SharpInterval;
 
 internal class Cut
 {

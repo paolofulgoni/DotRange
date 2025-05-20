@@ -5,9 +5,9 @@
     <Version>0.1.0</Version>
     <Authors>Paolo Fulgoni</Authors>
     <Company />
-    <Description>The Range class for .NET</Description>
+    <Description>The Interval class for .NET</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/paolofulgoni/DotRange</RepositoryUrl>
+    <RepositoryUrl>https://github.com/paolofulgoni/SharpInterval</RepositoryUrl>
     <Copyright>Copyright Paolo Fulgoni 2018</Copyright>
     <Nullable>enable</Nullable>
   </PropertyGroup>

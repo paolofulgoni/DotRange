@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DotRange\DotRange.csproj" />
+    <ProjectReference Include="..\SharpInterval\SharpInterval.csproj" />
   </ItemGroup>
 
 </Project>
