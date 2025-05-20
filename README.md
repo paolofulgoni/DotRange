@@ -1,4 +1,4 @@
-[![build](https://github.com/paolofulgoni/DotRange/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/paolofulgoni/DotRange/actions/workflows/dotnet.yml?query=branch%3Amaster)
+[![build](https://github.com/paolofulgoni/DotRange/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/paolofulgoni/DotRange/actions/workflows/dotnet.yml?query=branch%3Amain)
 [![NuGet](https://img.shields.io/nuget/v/DotRange.svg)](https://www.nuget.org/packages/DotRange)
 
 # DotRange
