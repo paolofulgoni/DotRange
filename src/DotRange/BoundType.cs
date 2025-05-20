@@ -10,6 +10,6 @@ namespace DotRange;
 [Serializable]
 public enum BoundType
 {
-	OPEN,
-	CLOSED
+    Open,
+    Closed
 }

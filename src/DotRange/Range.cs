@@ -58,8 +58,8 @@ public static class Range
     /// </exception>
     public static Range<C> Bounded<C>(C lower, BoundType lowerType, C upper, BoundType upperType) where C : IComparable<C>
     {
-        Cut<C> lowerBound = (lowerType == BoundType.OPEN) ? Cut.AboveValue(lower) : Cut.BelowValue(lower);
-        Cut<C> upperBound = (upperType == BoundType.OPEN) ? Cut.BelowValue(upper) : Cut.AboveValue(upper);
+        Cut<C> lowerBound = (lowerType == BoundType.Open) ? Cut.AboveValue(lower) : Cut.BelowValue(lower);
+        Cut<C> upperBound = (upperType == BoundType.Open) ? Cut.BelowValue(upper) : Cut.AboveValue(upper);
         return new Range<C>(lowerBound, upperBound);
     }
 
@@ -87,12 +87,12 @@ public static class Range
     {
         switch (boundType)
         {
-            case BoundType.OPEN:
+            case BoundType.Open:
                 return LessThan(endpoint);
-            case BoundType.CLOSED:
+            case BoundType.Closed:
                 return AtMost(endpoint);
             default:
-                throw new Exception();
+                throw new ArgumentOutOfRangeException(nameof(boundType), boundType, "Invalid bound type");
         }
     }
 
@@ -120,12 +120,12 @@ public static class Range
     {
         switch (boundType)
         {
-            case BoundType.OPEN:
+            case BoundType.Open:
                 return GreaterThan(endpoint);
-            case BoundType.CLOSED:
+            case BoundType.Closed:
                 return AtLeast(endpoint);
             default:
-                throw new Exception();
+                throw new ArgumentOutOfRangeException(nameof(boundType), boundType, "Invalid bound type");
         }
     }
 
@@ -254,8 +254,8 @@ public sealed class Range<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns the type of this range's lower bound: <seealso cref="BoundType.CLOSED"/> if the range includes
-    /// its lower endpoint, <seealso cref="BoundType.OPEN"/> if it does not.
+    /// Returns the type of this range's lower bound: <seealso cref="BoundType.Closed"/> if the range includes
+    /// its lower endpoint, <seealso cref="BoundType.Open"/> if it does not.
     /// </summary>
     /// <exception cref="InvalidOperationException"> if this range is unbounded below
     /// (that is, <seealso cref="Range{C}.HasLowerBound"/> returns <c>false</c>)</exception>
@@ -282,8 +282,8 @@ public sealed class Range<C> where C : IComparable<C>
     }
 
     /// <summary>
-    /// Returns the type of this range's upper bound: <seealso cref="BoundType.CLOSED"/> if the range includes
-    /// its upper endpoint, <seealso cref="BoundType.OPEN"/> if it does not.
+    /// Returns the type of this range's upper bound: <seealso cref="BoundType.Closed"/> if the range includes
+    /// its upper endpoint, <seealso cref="BoundType.Open"/> if it does not.
     /// </summary>
     /// <exception cref="InvalidOperationException"> if this range is unbounded above 
     /// (that is, <seealso cref="Range{C}.HasUpperBound"/> returns <c>false</c>)</exception>
@@ -489,7 +489,7 @@ public sealed class Range<C> where C : IComparable<C>
     /// </summary>
     public override int GetHashCode()
     {
-        return _lowerBound.GetHashCode() * 31 + _upperBound.GetHashCode();
+        return HashCode.Combine(_lowerBound, _upperBound);
     }
 
     /// <summary>

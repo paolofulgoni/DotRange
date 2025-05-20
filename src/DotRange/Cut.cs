@@ -197,11 +197,11 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
         }
         internal override BoundType TypeAsLowerBound()
         {
-            return BoundType.CLOSED;
+            return BoundType.Closed;
         }
         internal override BoundType TypeAsUpperBound()
         {
-            return BoundType.OPEN;
+            return BoundType.Open;
         }
         internal override void DescribeAsLowerBound(StringBuilder sb)
         {
@@ -233,11 +233,11 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
         }
         internal override BoundType TypeAsLowerBound()
         {
-            return BoundType.OPEN;
+            return BoundType.Open;
         }
         internal override BoundType TypeAsUpperBound()
         {
-            return BoundType.CLOSED;
+            return BoundType.Closed;
         }
         internal override void DescribeAsLowerBound(StringBuilder sb)
         {
