@@ -55,8 +55,12 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
     internal abstract void DescribeAsUpperBound(StringBuilder sb);
 
     // note: overridden by {BELOW,ABOVE}_ALL
-    public virtual int CompareTo(Cut<C> that)
+    public virtual int CompareTo(Cut<C>? that)
     {
+        if (that is null)
+        {
+            return 1;
+        }
         if (that == BelowAll.INSTANCE)
         {
             return 1;
@@ -79,7 +83,7 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
         return _endpoint;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj is Cut<C> that)
         {
@@ -98,7 +102,7 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
     {
         public static readonly BelowAll INSTANCE = new BelowAll();
 
-        internal BelowAll() : base(default(C))
+        internal BelowAll() : base(default!)
         {
         }
         internal override C Endpoint()
@@ -125,7 +129,7 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
         {
             throw new InvalidOperationException();
         }
-        public override int CompareTo(Cut<C> o)
+        public override int CompareTo(Cut<C>? o)
         {
             return (o is BelowAll) ? 0 : -1;
         }
@@ -144,7 +148,7 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
     {
         internal static readonly AboveAll INSTANCE = new AboveAll();
 
-        internal AboveAll() : base(default(C))
+        internal AboveAll() : base(default!)
         {
         }
         internal override C Endpoint()
@@ -171,7 +175,7 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
         {
             sb.Append("+\u221e)");
         }
-        public override int CompareTo(Cut<C> o)
+        public override int CompareTo(Cut<C>? o)
         {
             return (o is AboveAll) ? 0 : 1;
         }

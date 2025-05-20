@@ -475,7 +475,7 @@ public sealed class Range<C> where C : IComparable<C>
     /// Similarly, empty ranges are not equal unless they have exactly the same representation, so
     /// <c>[3..3)</c>, <c>(3..3]</c>, <c>(4..4]</c> are all unequal.
     /// </summary>
-    public override bool Equals(object other)
+    public override bool Equals(object? other)
     {
         if (other is Range<C> otherRange)
         {
