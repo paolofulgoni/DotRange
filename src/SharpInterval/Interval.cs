@@ -2,88 +2,88 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DotRange;
+namespace SharpInterval;
 
-public static class Range
+public static class Interval
 {
     /// <summary>
-    /// Returns a range that contains all values strictly greater than <paramref name="lower"/> and strictly less
+    /// Returns an interval that contains all values strictly greater than <paramref name="lower"/> and strictly less
     /// than <paramref name="upper"/>.
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than or equal to <paramref name="upper"/>
     /// </exception>
-    public static Range<C> Open<C>(C lower, C upper) where C : IComparable<C>
+    public static Interval<C> Open<C>(C lower, C upper) where C : IComparable<C>
     {
-        return new Range<C>(Cut.AboveValue(lower), Cut.BelowValue(upper));
+        return new Interval<C>(Cut.AboveValue(lower), Cut.BelowValue(upper));
     }
 
     /// <summary>
-    /// Returns a range that contains all values greater than or equal to <paramref name="lower"/> and less than
+    /// Returns an interval that contains all values greater than or equal to <paramref name="lower"/> and less than
     /// or equal to <paramref name="upper"/>.
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than <paramref name="upper"/>
     /// </exception>
-    public static Range<C> Closed<C>(C lower, C upper) where C : IComparable<C>
+    public static Interval<C> Closed<C>(C lower, C upper) where C : IComparable<C>
     {
-        return new Range<C>(Cut.BelowValue(lower), Cut.AboveValue(upper));
+        return new Interval<C>(Cut.BelowValue(lower), Cut.AboveValue(upper));
     }
 
     /// <summary>
-    /// Returns a range that contains all values greater than or equal to <paramref name="lower"/> and strictly
+    /// Returns an interval that contains all values greater than or equal to <paramref name="lower"/> and strictly
     /// less than <paramref name="upper"/>.
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than <paramref name="upper"/>
     /// </exception>
-    public static Range<C> ClosedOpen<C>(C lower, C upper) where C : IComparable<C>
+    public static Interval<C> ClosedOpen<C>(C lower, C upper) where C : IComparable<C>
     {
-        return new Range<C>(Cut.BelowValue(lower), Cut.BelowValue(upper));
+        return new Interval<C>(Cut.BelowValue(lower), Cut.BelowValue(upper));
     }
 
     /// <summary>
-    /// Returns a range that contains all values strictly greater than <paramref name="lower"/> and less than or
+    /// Returns an interval that contains all values strictly greater than <paramref name="lower"/> and less than or
     /// equal to <paramref name="upper"/>.
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than <paramref name="upper"/>
     /// </exception>
-    public static Range<C> OpenClosed<C>(C lower, C upper) where C : IComparable<C>
+    public static Interval<C> OpenClosed<C>(C lower, C upper) where C : IComparable<C>
     {
-        return new Range<C>(Cut.AboveValue(lower), Cut.AboveValue(upper));
+        return new Interval<C>(Cut.AboveValue(lower), Cut.AboveValue(upper));
     }
 
     /// <summary>
-    /// Returns a range that contains any value from <paramref name="lower"/> to <paramref name="upper"/>, where each
+    /// Returns an interval that contains any value from <paramref name="lower"/> to <paramref name="upper"/>, where each
     /// endpoint may be either inclusive (closed) or exclusive (open).
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than <paramref name="upper"/>
     /// </exception>
-    public static Range<C> Bounded<C>(C lower, BoundType lowerType, C upper, BoundType upperType) where C : IComparable<C>
+    public static Interval<C> Bounded<C>(C lower, BoundType lowerType, C upper, BoundType upperType) where C : IComparable<C>
     {
         Cut<C> lowerBound = (lowerType == BoundType.Open) ? Cut.AboveValue(lower) : Cut.BelowValue(lower);
         Cut<C> upperBound = (upperType == BoundType.Open) ? Cut.BelowValue(upper) : Cut.AboveValue(upper);
-        return new Range<C>(lowerBound, upperBound);
+        return new Interval<C>(lowerBound, upperBound);
     }
 
     /// <summary>
-    /// Returns a range that contains all values strictly less than <paramref name="endpoint"/>.
+    /// Returns an interval that contains all values strictly less than <paramref name="endpoint"/>.
     /// </summary>
-    public static Range<C> LessThan<C>(C endpoint) where C : IComparable<C>
+    public static Interval<C> LessThan<C>(C endpoint) where C : IComparable<C>
     {
-        return new Range<C>(Cut.BelowAll<C>(), Cut.BelowValue(endpoint));
+        return new Interval<C>(Cut.BelowAll<C>(), Cut.BelowValue(endpoint));
     }
 
     /// <summary>
-    /// Returns a range that contains all values less than or equal to <paramref name="endpoint"/>.
+    /// Returns an interval that contains all values less than or equal to <paramref name="endpoint"/>.
     /// </summary>
-    public static Range<C> AtMost<C>(C endpoint) where C : IComparable<C>
+    public static Interval<C> AtMost<C>(C endpoint) where C : IComparable<C>
     {
-        return new Range<C>(Cut.BelowAll<C>(), Cut.AboveValue(endpoint));
+        return new Interval<C>(Cut.BelowAll<C>(), Cut.AboveValue(endpoint));
     }
 
     /// <summary>
-    /// Returns a range with no lower bound up to the given endpoint, which may be either inclusive
+    /// Returns an interval with no lower bound up to the given endpoint, which may be either inclusive
     /// (closed) or exclusive (open).
     /// </summary>
-    public static Range<C> UpTo<C>(C endpoint, BoundType boundType) where C : IComparable<C>
+    public static Interval<C> UpTo<C>(C endpoint, BoundType boundType) where C : IComparable<C>
     {
         switch (boundType)
         {
@@ -97,26 +97,26 @@ public static class Range
     }
 
     /// <summary>
-    /// Returns a range that contains all values strictly greater than <paramref name="endpoint"/>.
+    /// Returns an interval that contains all values strictly greater than <paramref name="endpoint"/>.
     /// </summary>
-    public static Range<C> GreaterThan<C>(C endpoint) where C : IComparable<C>
+    public static Interval<C> GreaterThan<C>(C endpoint) where C : IComparable<C>
     {
-        return new Range<C>(Cut.AboveValue(endpoint), Cut.AboveAll<C>());
+        return new Interval<C>(Cut.AboveValue(endpoint), Cut.AboveAll<C>());
     }
 
     /// <summary>
-    /// Returns a range that contains all values greater than or equal to <paramref name="endpoint"/>.
+    /// Returns an interval that contains all values greater than or equal to <paramref name="endpoint"/>.
     /// </summary>
-    public static Range<C> AtLeast<C>(C endpoint) where C : IComparable<C>
+    public static Interval<C> AtLeast<C>(C endpoint) where C : IComparable<C>
     {
-        return new Range<C>(Cut.BelowValue(endpoint), Cut.AboveAll<C>());
+        return new Interval<C>(Cut.BelowValue(endpoint), Cut.AboveAll<C>());
     }
 
     /// <summary>
-    /// Returns a range from the given endpoint, which may be either inclusive (closed) or exclusive
+    /// Returns an interval from the given endpoint, which may be either inclusive (closed) or exclusive
     /// (open), with no upper bound.
     /// </summary>
-    public static Range<C> DownTo<C>(C endpoint, BoundType boundType) where C : IComparable<C>
+    public static Interval<C> DownTo<C>(C endpoint, BoundType boundType) where C : IComparable<C>
     {
         switch (boundType)
         {
@@ -130,52 +130,52 @@ public static class Range
     }
 
     /// <summary>
-    /// Returns a range that contains every value of type <typeparamref name="C"/>.
+    /// Returns an interval that contains every value of type <typeparamref name="C"/>.
     /// </summary>
-    public static Range<C> All<C>() where C : IComparable<C>
+    public static Interval<C> All<C>() where C : IComparable<C>
     {
-        return new Range<C>(Cut.BelowAll<C>(), Cut.AboveAll<C>());
+        return new Interval<C>(Cut.BelowAll<C>(), Cut.AboveAll<C>());
     }
 
     /// <summary>
-    /// Returns a range that contains only the given value. The
-    /// returned range is closed on both ends.
+    /// Returns an interval that contains only the given value. The
+    /// returned interval is closed on both ends.
     /// </summary>
-    public static Range<C> Singleton<C>(C value) where C : IComparable<C>
+    public static Interval<C> Singleton<C>(C value) where C : IComparable<C>
     {
         return Closed(value, value);
     }
 }
 
 /// <summary>
-/// A range (or "interval") defines the boundaries around a contiguous span of values of some
+/// An interval (or "range") defines the boundaries around a contiguous span of values of some
 /// <c>Comparable</c> type; for example, "integers from 1 to 100 inclusive." Note that it is not
 /// possible to iterate over these contained values.
 /// </summary>
 /// <remarks>
-/// <para>Types of ranges</para>
+/// <para>Types of intervals</para>
 /// 
-/// <para>Each end of the range may be bounded or unbounded. If bounded, there is an associated
-/// endpoint value, and the range is considered to be either open (does not include the
+/// <para>Each end of the interval may be bounded or unbounded. If bounded, there is an associated
+/// endpoint value, and the interval is considered to be either open (does not include the
 /// endpoint) or closed (includes the endpoint) on that side. With three possibilities on each
-/// side, this yields nine basic types of ranges, enumerated below. (Notation: a square bracket
-/// (<c>[ ]</c>) indicates that the range is closed on that side; a parenthesis (<c>( )</c>) means
+/// side, this yields nine basic types of intervals, enumerated below. (Notation: a square bracket
+/// (<c>[ ]</c>) indicates that the interval is closed on that side; a parenthesis (<c>( )</c>) means
 /// it is either open or unbounded. The construct <c>{x | statement</c>} is read "the set of all
 /// x such that statement.")
 /// </para>
 /// <para>
-/// Range Types
+/// Interval Types
 /// <list type="table">
 /// <listheader><term>Notation</term><term>Definition</term><term>Factory method</term></listheader>
-/// <item><term><c>(a..b)</c>  </term><term><c>x | a < x < b</c>  </term><term><seealso cref="Range.Open{C}(C, C)"/></term></item>
-/// <item><term><c>[a..b]</c>  </term><term><c>x | a <= x <= b</c></term><term><seealso cref="Range.Closed{C}(C, C)"/></term></item>
-/// <item><term><c>(a..b]</c>  </term><term><c>x | a < x <= b</c> </term><term><seealso cref="Range.OpenClosed{C}(C, C)"/></term></item>
-/// <item><term><c>[a..b)</c>  </term><term><c>x | a <= x < b</c> </term><term><seealso cref="Range.ClosedOpen{C}(C, C)"/></term></item>
-/// <item><term><c>(a..+∞)</c> </term><term><c>x | x > a</c>      </term><term><seealso cref="Range.GreaterThan{C}(C)"/></term></item>
-/// <item><term><c>[a..+∞)</c> </term><term><c>x | x >= a</c>     </term><term><seealso cref="Range.AtLeast{C}(C)"/></term></item>
-/// <item><term><c>(-∞..b)</c> </term><term><c>x | x < b</c>      </term><term><seealso cref="Range.LessThan{C}(C)"/></term></item>
-/// <item><term><c>(-∞..b]</c> </term><term><c>x | x <= b</c>     </term><term><seealso cref="Range.AtMost{C}(C)"/></term></item>
-/// <item><term><c>(-∞..+∞)</c></term><term><c>x</c>}             </term><term><seealso cref="Range.All{C}"/></term></item>
+/// <item><term><c>(a..b)</c>  </term><term><c>x | a < x < b</c>  </term><term><seealso cref="Interval.Open{C}(C, C)"/></term></item>
+/// <item><term><c>[a..b]</c>  </term><term><c>x | a <= x <= b</c></term><term><seealso cref="Interval.Closed{C}(C, C)"/></term></item>
+/// <item><term><c>(a..b]</c>  </term><term><c>x | a < x <= b</c> </term><term><seealso cref="Interval.OpenClosed{C}(C, C)"/></term></item>
+/// <item><term><c>[a..b)</c>  </term><term><c>x | a <= x < b</c> </term><term><seealso cref="Interval.ClosedOpen{C}(C, C)"/></term></item>
+/// <item><term><c>(a..+∞)</c> </term><term><c>x | x > a</c>      </term><term><seealso cref="Interval.GreaterThan{C}(C)"/></term></item>
+/// <item><term><c>[a..+∞)</c> </term><term><c>x | x >= a</c>     </term><term><seealso cref="Interval.AtLeast{C}(C)"/></term></item>
+/// <item><term><c>(-∞..b)</c> </term><term><c>x | x < b</c>      </term><term><seealso cref="Interval.LessThan{C}(C)"/></term></item>
+/// <item><term><c>(-∞..b]</c> </term><term><c>x | x <= b</c>     </term><term><seealso cref="Interval.AtMost{C}(C)"/></term></item>
+/// <item><term><c>(-∞..+∞)</c></term><term><c>x</c>}             </term><term><seealso cref="Interval.All{C}"/></term></item>
 /// </list>
 /// </para>
 /// 
@@ -184,8 +184,8 @@ public static class Range
 /// may be equal only if at least one of the bounds is closed:
 /// 
 /// <list type="bullet">
-/// <item><description><c>[a..a]</c> : a singleton range</description></item>
-/// <item><description><c>[a..a); (a..a]</c> : empty ranges; also valid</description></item>
+/// <item><description><c>[a..a]</c> : a singleton interval</description></item>
+/// <item><description><c>[a..a); (a..a]</c> : empty intervals; also valid</description></item>
 /// <item><description><c>(a..a)</c> : invalid; an exception will be thrown</description></item>
 /// </list>
 /// 
@@ -193,7 +193,7 @@ public static class Range
 /// 
 /// <list type="bullet">
 /// <item><description>Use immutable value types only, if at all possible. If you must use a mutable type, do
-/// not allow the endpoint instances to mutate after the range is created!</description></item>
+/// not allow the endpoint instances to mutate after the interval is created!</description></item>
 /// <item><description>Your value type's comparison method should be consistent with
 /// <see cref="object.Equals(object)"/> if at all possible. Otherwise, be aware that concepts used throughout this
 /// documentation such as "equal", "same", "unique" and so on actually refer to whether
@@ -205,26 +205,26 @@ public static class Range
 ///
 /// <list type="bullet">
 /// <item><description>Instances of this type are obtained using the static factory methods in this class.</description></item>
-/// <item><description>Ranges are convex: whenever two values are contained, all values in between them
+/// <item><description>Intervals are convex: whenever two values are contained, all values in between them
 /// must also be contained. More formally, for any <c>c1 <= c2 <= c3</c> of type <typeparamref name="C"/>,
 /// <c>r.contains(c1) && r.contains(c3)</c> implies <c>r.contains(c2)</c>. This means that a
-/// <c>Range&lt;Integer&gt;</c> can never be used to represent, say, "all prime numbers from
+/// <c>Interval&lt;Integer&gt;</c> can never be used to represent, say, "all prime numbers from
 /// 1 to 100."</description></item>
 /// <item><description>Terminology note: a range <c>a</c> is said to be the maximal range having property
 /// <c>P</c> if, for all ranges <c>b</c> also having property <c>P</c>, <c>a.encloses(b)</c>.
 /// Likewise, <c>a</c> is minimal when <c>b.encloses(a)</c> for all <c>b</c> having
-/// property <c>P</c>. See, for example, the definition of <seealso cref="Range{C}.Intersection(Range{C})"/>.</description></item>
+/// property <c>P</c>. See, for example, the definition of <seealso cref="Interval{C}.Intersection(Interval{C})"/>.</description></item>
 /// </list>
 /// 
 /// </para>
 /// </remarks>
 [Serializable]
-public sealed class Range<C> where C : IComparable<C>
+public sealed class Interval<C> where C : IComparable<C>
 {
     internal readonly Cut<C> _lowerBound;
     internal readonly Cut<C> _upperBound;
 
-    internal Range(Cut<C> lowerBound, Cut<C> upperBound)
+    internal Interval(Cut<C> lowerBound, Cut<C> upperBound)
     {
         this._lowerBound = lowerBound ?? throw new ArgumentNullException(nameof(lowerBound));
         this._upperBound = upperBound ?? throw new ArgumentNullException(nameof(upperBound));
@@ -247,7 +247,7 @@ public sealed class Range<C> where C : IComparable<C>
     /// Returns the lower endpoint of this range.
     /// </summary>
     /// <exception cref="InvalidOperationException"> if this range is unbounded below
-    /// (that is, <seealso cref="Range{C}.HasLowerBound"/> returns <c>false</c>)</exception>
+    /// (that is, <seealso cref="Interval{C}.HasLowerBound"/> returns <c>false</c>)</exception>
     public C LowerEndpoint()
     {
         return _lowerBound.Endpoint();
@@ -258,7 +258,7 @@ public sealed class Range<C> where C : IComparable<C>
     /// its lower endpoint, <seealso cref="BoundType.Open"/> if it does not.
     /// </summary>
     /// <exception cref="InvalidOperationException"> if this range is unbounded below
-    /// (that is, <seealso cref="Range{C}.HasLowerBound"/> returns <c>false</c>)</exception>
+    /// (that is, <seealso cref="Interval{C}.HasLowerBound"/> returns <c>false</c>)</exception>
     public BoundType LowerBoundType()
     {
         return _lowerBound.TypeAsLowerBound();
@@ -275,7 +275,7 @@ public sealed class Range<C> where C : IComparable<C>
     /// Returns the upper endpoint of this range.
     /// </summary>
     /// <exception cref="InvalidOperationException"> if this range is unbounded above 
-    /// (that is, <seealso cref="Range{C}.HasUpperBound"/> returns <c>false</c>)</exception>
+    /// (that is, <seealso cref="Interval{C}.HasUpperBound"/> returns <c>false</c>)</exception>
     public C UpperEndpoint()
     {
         return _upperBound.Endpoint();
@@ -286,7 +286,7 @@ public sealed class Range<C> where C : IComparable<C>
     /// its upper endpoint, <seealso cref="BoundType.Open"/> if it does not.
     /// </summary>
     /// <exception cref="InvalidOperationException"> if this range is unbounded above 
-    /// (that is, <seealso cref="Range{C}.HasUpperBound"/> returns <c>false</c>)</exception>
+    /// (that is, <seealso cref="Interval{C}.HasUpperBound"/> returns <c>false</c>)</exception>
     public BoundType UpperBoundType()
     {
         return _upperBound.TypeAsUpperBound();
@@ -356,7 +356,7 @@ public sealed class Range<C> where C : IComparable<C>
     /// also implies connectedness.
     /// </para>
     /// </summary>
-    public bool Encloses(Range<C> other)
+    public bool Encloses(Interval<C> other)
     {
         return _lowerBound.CompareTo(other._lowerBound) <= 0 && _upperBound.CompareTo(other._upperBound) >= 0;
     }
@@ -389,7 +389,7 @@ public sealed class Range<C> where C : IComparable<C>
     /// discrete domain before testing for connectedness.
     /// </para>
     /// </summary>
-    public bool IsConnected(Range<C> other)
+    public bool IsConnected(Interval<C> other)
     {
         return _lowerBound.CompareTo(other._upperBound) <= 0 && other._lowerBound.CompareTo(_upperBound) <= 0;
     }
@@ -405,12 +405,12 @@ public sealed class Range<C> where C : IComparable<C>
     /// <para>The intersection exists if and only if the two ranges are connected
     /// (<see cref="IsConnected"/>).</para>
     /// <para>The intersection operation is commutative, associative and idempotent, and its identity
-    /// element is <seealso cref="Range.All{C}"/>).
+    /// element is <seealso cref="Interval.All{C}"/>).
     /// 
     /// </para>
     /// </summary>
     /// <exception cref="ArgumentException"> if <c>isConnected(connectedRange)</c> is <c>false</c> </exception>
-    public Range<C> Intersection(Range<C> connectedRange)
+    public Interval<C> Intersection(Interval<C> connectedRange)
     {
         int lowerCmp = _lowerBound.CompareTo(connectedRange._lowerBound);
         int upperCmp = _upperBound.CompareTo(connectedRange._upperBound);
@@ -426,7 +426,7 @@ public sealed class Range<C> where C : IComparable<C>
         {
             Cut<C> newLower = (lowerCmp >= 0) ? _lowerBound : connectedRange._lowerBound;
             Cut<C> newUpper = (upperCmp <= 0) ? _upperBound : connectedRange._upperBound;
-            return new Range<C>(newLower, newUpper);
+            return new Interval<C>(newLower, newUpper);
         }
     }
 
@@ -439,11 +439,11 @@ public sealed class Range<C> where C : IComparable<C>
     /// that are not contained in either input range.
     /// 
     /// </para>
-    /// <para>Like <seealso cref="Range{C}.Intersection(Range{C})"/>, this operation is commutative, associative
+    /// <para>Like <seealso cref="Interval{C}.Intersection(Interval{C})"/>, this operation is commutative, associative
     /// and idempotent. Unlike it, it is always well-defined for any two input ranges.
     /// </para>
     /// </summary>
-    public Range<C> Span(Range<C> other)
+    public Interval<C> Span(Interval<C> other)
     {
         int lowerCmp = _lowerBound.CompareTo(other._lowerBound);
         int upperCmp = _upperBound.CompareTo(other._upperBound);
@@ -459,7 +459,7 @@ public sealed class Range<C> where C : IComparable<C>
         {
             Cut<C> newLower = (lowerCmp <= 0) ? _lowerBound : other._lowerBound;
             Cut<C> newUpper = (upperCmp >= 0) ? _upperBound : other._upperBound;
-            return new Range<C>(newLower, newUpper);
+            return new Interval<C>(newLower, newUpper);
         }
     }
 
@@ -472,7 +472,7 @@ public sealed class Range<C> where C : IComparable<C>
     /// </summary>
     public override bool Equals(object? other)
     {
-        if (other is Range<C> otherRange)
+        if (other is Interval<C> otherRange)
         {
             return _lowerBound.Equals(otherRange._lowerBound) && _upperBound.Equals(otherRange._upperBound);
         }
