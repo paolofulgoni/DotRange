@@ -153,70 +153,14 @@ public static class Interval
 /// possible to iterate over these contained values.
 /// </summary>
 /// <remarks>
-/// <para>Types of intervals</para>
-/// 
-/// <para>Each end of the interval may be bounded or unbounded. If bounded, there is an associated
-/// endpoint value, and the interval is considered to be either open (does not include the
-/// endpoint) or closed (includes the endpoint) on that side. With three possibilities on each
-/// side, this yields nine basic types of intervals, enumerated below. (Notation: a square bracket
-/// (<c>[ ]</c>) indicates that the interval is closed on that side; a parenthesis (<c>( )</c>) means
-/// it is either open or unbounded. The construct <c>{x | statement</c>} is read "the set of all
-/// x such that statement.")
-/// </para>
-/// <para>
-/// Interval Types
-/// <list type="table">
-/// <listheader><term>Notation</term><term>Definition</term><term>Factory method</term></listheader>
-/// <item><term><c>(a..b)</c>  </term><term><c>x | a < x < b</c>  </term><term><seealso cref="Interval.Open{C}(C, C)"/></term></item>
-/// <item><term><c>[a..b]</c>  </term><term><c>x | a <= x <= b</c></term><term><seealso cref="Interval.Closed{C}(C, C)"/></term></item>
-/// <item><term><c>(a..b]</c>  </term><term><c>x | a < x <= b</c> </term><term><seealso cref="Interval.OpenClosed{C}(C, C)"/></term></item>
-/// <item><term><c>[a..b)</c>  </term><term><c>x | a <= x < b</c> </term><term><seealso cref="Interval.ClosedOpen{C}(C, C)"/></term></item>
-/// <item><term><c>(a..+∞)</c> </term><term><c>x | x > a</c>      </term><term><seealso cref="Interval.GreaterThan{C}(C)"/></term></item>
-/// <item><term><c>[a..+∞)</c> </term><term><c>x | x >= a</c>     </term><term><seealso cref="Interval.AtLeast{C}(C)"/></term></item>
-/// <item><term><c>(-∞..b)</c> </term><term><c>x | x < b</c>      </term><term><seealso cref="Interval.LessThan{C}(C)"/></term></item>
-/// <item><term><c>(-∞..b]</c> </term><term><c>x | x <= b</c>     </term><term><seealso cref="Interval.AtMost{C}(C)"/></term></item>
-/// <item><term><c>(-∞..+∞)</c></term><term><c>x</c>}             </term><term><seealso cref="Interval.All{C}"/></term></item>
-/// </list>
-/// </para>
-/// 
-/// </para>
-/// <para>When both endpoints exist, the upper endpoint may not be less than the lower. The endpoints
-/// may be equal only if at least one of the bounds is closed:
-/// 
-/// <list type="bullet">
-/// <item><description><c>[a..a]</c> : a singleton interval</description></item>
-/// <item><description><c>[a..a); (a..a]</c> : empty intervals; also valid</description></item>
-/// <item><description><c>(a..a)</c> : invalid; an exception will be thrown</description></item>
-/// </list>
-/// 
-/// <para>Warnings</para>
-/// 
-/// <list type="bullet">
-/// <item><description>Use immutable value types only, if at all possible. If you must use a mutable type, do
-/// not allow the endpoint instances to mutate after the interval is created!</description></item>
-/// <item><description>Your value type's comparison method should be consistent with
-/// <see cref="object.Equals(object)"/> if at all possible. Otherwise, be aware that concepts used throughout this
-/// documentation such as "equal", "same", "unique" and so on actually refer to whether
-/// <seealso cref="IComparable{T}.CompareTo(T)"/> returns zero, not whether <seealso cref="object.Equals(object)"/>
-/// returns <c>true</c>.</description></item>
-/// </list>
-/// 
-/// <para>Other notes</para>
-///
-/// <list type="bullet">
-/// <item><description>Instances of this type are obtained using the static factory methods in this class.</description></item>
-/// <item><description>Intervals are convex: whenever two values are contained, all values in between them
-/// must also be contained. More formally, for any <c>c1 <= c2 <= c3</c> of type <typeparamref name="C"/>,
-/// <c>r.contains(c1) && r.contains(c3)</c> implies <c>r.contains(c2)</c>. This means that a
-/// <c>Interval&lt;Integer&gt;</c> can never be used to represent, say, "all prime numbers from
-/// 1 to 100."</description></item>
-/// <item><description>Terminology note: an interval <c>a</c> is said to be the maximal interval having property
-/// <c>P</c> if, for all intervals <c>b</c> also having property <c>P</c>, <c>a.encloses(b)</c>.
-/// Likewise, <c>a</c> is minimal when <c>b.encloses(a)</c> for all <c>b</c> having
-/// property <c>P</c>. See, for example, the definition of <seealso cref="Interval{C}.Intersection(Interval{C})"/>.</description></item>
-/// </list>
-/// 
-/// </para>
+/// <para>An interval is a contiguous range of comparable values. Each side can be
+/// open, closed or unbounded, and factory methods exist for the common forms.</para>
+/// <para>The upper endpoint may not be less than the lower one. They can coincide
+/// only if at least one side is closed.</para>
+/// <para>Use immutable value types whenever possible and ensure comparisons are
+/// consistent with equality.</para>
+/// <para>Intervals are convex: whenever two values are contained, all values in
+/// between them are contained as well.</para>
 /// </remarks>
 [Serializable]
 public sealed class Interval<C> where C : IComparable<C>
