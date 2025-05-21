@@ -4,6 +4,13 @@ using System.Text;
 
 namespace SharpInterval;
 
+/// <summary>
+/// Provides factory methods for creating <see cref="Interval{C}"/> instances.
+/// </summary>
+/// <remarks>
+/// This non-generic class only exposes these factories. The actual interval
+/// representation is <see cref="Interval{C}"/>.
+/// </remarks>
 public static class Interval
 {
     /// <summary>
