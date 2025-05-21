@@ -6,45 +6,45 @@ namespace SharpInterval;
 
 internal class Cut
 {
-    internal static Cut<C> BelowAll<C>() where C : IComparable<C>
+    internal static Cut<T> BelowAll<T>() where T : IComparable<T>
     {
-        return Cut<C>.BelowAll.INSTANCE;
+        return Cut<T>.BelowAll.INSTANCE;
     }
 
-    internal static Cut<C> AboveAll<C>() where C : IComparable<C>
+    internal static Cut<T> AboveAll<T>() where T : IComparable<T>
     {
-        return Cut<C>.AboveAll.INSTANCE;
+        return Cut<T>.AboveAll.INSTANCE;
     }
 
-    internal static Cut<C> BelowValue<C>(C endpoint) where C : IComparable<C>
+    internal static Cut<T> BelowValue<T>(T endpoint) where T : IComparable<T>
     {
-        return new Cut<C>.BelowValue(endpoint);
+        return new Cut<T>.BelowValue(endpoint);
     }
 
-    internal static Cut<C> AboveValue<C>(C endpoint) where C : IComparable<C>
+    internal static Cut<T> AboveValue<T>(T endpoint) where T : IComparable<T>
     {
-        return new Cut<C>.AboveValue(endpoint);
+        return new Cut<T>.AboveValue(endpoint);
     }
 }
 
 /// <summary>
-/// Implementation detail for the internal structure of <seealso cref="Interval{C}"/> instances. Represents a unique
-/// way of "cutting" a "number line" (actually of instances of type <typeparamref name="C"/>, not necessarily
+/// Implementation detail for the internal structure of <seealso cref="Interval{T}"/> instances. Represents a unique
+/// way of "cutting" a "number line" (actually of instances of type <typeparamref name="T"/>, not necessarily
 /// "numbers") into two sections; this can be done below a certain value, above a certain value,
 /// below all values or above all values. With this object defined in this way, an interval can
-/// always be represented by a pair of <seealso cref="Cut{C}"/> instances.
+/// always be represented by a pair of <seealso cref="Cut{T}"/> instances.
 /// </summary>
 [Serializable]
-internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
+internal abstract class Cut<T> : IComparable<Cut<T>> where T : IComparable<T>
 {
-    internal readonly C _endpoint;
+    internal readonly T _endpoint;
 
-    internal Cut(C endpoint)
+    internal Cut(T endpoint)
     {
         _endpoint = endpoint;
     }
 
-    internal abstract bool IsLessThan(C value);
+    internal abstract bool IsLessThan(T value);
 
     internal abstract BoundType TypeAsLowerBound();
 
@@ -55,7 +55,7 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
     internal abstract void DescribeAsUpperBound(StringBuilder sb);
 
     // note: overridden by {BELOW,ABOVE}_ALL
-    public virtual int CompareTo(Cut<C>? that)
+    public virtual int CompareTo(Cut<T>? that)
     {
         if (that is null)
         {
@@ -78,14 +78,14 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
         return (this is AboveValue).CompareTo(that is AboveValue);
     }
 
-    internal virtual C Endpoint()
+    internal virtual T Endpoint()
     {
         return _endpoint;
     }
 
     public override bool Equals(object? obj)
     {
-        if (obj is Cut<C> that)
+        if (obj is Cut<T> that)
         {
             int compareResult = CompareTo(that);
             return compareResult == 0;
@@ -98,18 +98,18 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
 
 
     [Serializable]
-    public sealed class BelowAll : Cut<C>
+    public sealed class BelowAll : Cut<T>
     {
         public static readonly BelowAll INSTANCE = new BelowAll();
 
         internal BelowAll() : base(default!)
         {
         }
-        internal override C Endpoint()
+        internal override T Endpoint()
         {
             throw new InvalidOperationException("interval unbounded on this side");
         }
-        internal override bool IsLessThan(C value)
+        internal override bool IsLessThan(T value)
         {
             return true;
         }
@@ -129,7 +129,7 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
         {
             throw new InvalidOperationException();
         }
-        public override int CompareTo(Cut<C>? o)
+        public override int CompareTo(Cut<T>? o)
         {
             return (o is BelowAll) ? 0 : -1;
         }
@@ -144,18 +144,18 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
     }
 
     [Serializable]
-    public sealed class AboveAll : Cut<C>
+    public sealed class AboveAll : Cut<T>
     {
         internal static readonly AboveAll INSTANCE = new AboveAll();
 
         internal AboveAll() : base(default!)
         {
         }
-        internal override C Endpoint()
+        internal override T Endpoint()
         {
             throw new InvalidOperationException("interval unbounded on this side");
         }
-        internal override bool IsLessThan(C value)
+        internal override bool IsLessThan(T value)
         {
             return false;
         }
@@ -175,7 +175,7 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
         {
             sb.Append("+\u221e)");
         }
-        public override int CompareTo(Cut<C>? o)
+        public override int CompareTo(Cut<T>? o)
         {
             return (o is AboveAll) ? 0 : 1;
         }
@@ -190,12 +190,12 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
     }
 
     [Serializable]
-    public sealed class BelowValue : Cut<C>
+    public sealed class BelowValue : Cut<T>
     {
-        internal BelowValue(C endpoint) : base(endpoint)
+        internal BelowValue(T endpoint) : base(endpoint)
         {
         }
-        internal override bool IsLessThan(C value)
+        internal override bool IsLessThan(T value)
         {
             return _endpoint.CompareTo(value) <= 0;
         }
@@ -226,12 +226,12 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
     }
 
     [Serializable]
-    public sealed class AboveValue : Cut<C>
+    public sealed class AboveValue : Cut<T>
     {
-        internal AboveValue(C endpoint) : base(endpoint)
+        internal AboveValue(T endpoint) : base(endpoint)
         {
         }
-        internal override bool IsLessThan(C value)
+        internal override bool IsLessThan(T value)
         {
             return _endpoint.CompareTo(value) < 0;
         }
