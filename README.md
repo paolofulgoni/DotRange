@@ -3,7 +3,7 @@
 
 # SharpInterval
 
-The Interval class for .Net Standard
+Define, combine, and test value intervals in .NET
 
 ## Introduction
 
