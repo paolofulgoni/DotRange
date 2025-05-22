@@ -38,7 +38,7 @@ bounds is closed:
 *   `[a..a); (a..a]`: empty, but valid
 *   `(a..a)`: invalid
 
-An interval in SharpInterval has the type `Interval<C>`. All intervals are *immutable*.
+An interval in SharpInterval has the type `Interval<T>`. All intervals are *immutable*.
 
 ## Building Intervals
 
@@ -46,14 +46,14 @@ Intervals can be obtained from the static methods on `Interval`:
 
 Interval type | Method
 :--------- | :-------------------
-`(a..b)`   | `Open(C, C)`
-`[a..b]`   | `Closed(C, C)`
-`[a..b)`   | `ClosedOpen(C, C)`
-`(a..b]`   | `OpenClosed(C, C)`
-`(a..+∞)`  | `GreaterThan(C)`
-`[a..+∞)`  | `AtLeast(C)`
-`(-∞..b)`  | `LessThan(C)`
-`(-∞..b]`  | `AtMost(C)`
+`(a..b)`   | `Open(T, T)`
+`[a..b]`   | `Closed(T, T)`
+`[a..b)`   | `ClosedOpen(T, T)`
+`(a..b]`   | `OpenClosed(T, T)`
+`(a..+∞)`  | `GreaterThan(T)`
+`[a..+∞)`  | `AtLeast(T)`
+`(-∞..b)`  | `LessThan(T)`
+`(-∞..b]`  | `AtMost(T)`
 `(-∞..+∞)` | `All()`
 
 ```cs
@@ -66,9 +66,9 @@ explicitly:
 
 Interval type                                   | Method
 :------------------------------------------- | :-----
-Bounded on both ends                         | `Bounded(C, BoundType, C, BoundType)`
-Unbounded on top (`(a..+∞)` or `[a..+∞)`)    | `DownTo(C, BoundType)`
-Unbounded on bottom (`(-∞..b)` or `(-∞..b]`) | `UpTo(C, BoundType)`
+Bounded on both ends                         | `Bounded(T, BoundType, T, BoundType)`
+Unbounded on top (`(a..+∞)` or `[a..+∞)`)    | `DownTo(T, BoundType)`
+Unbounded on bottom (`(-∞..b)` or `(-∞..b]`) | `UpTo(T, BoundType)`
 
 Here, `BoundType` is an enum containing the values `Closed` and `Open`.
 
@@ -79,7 +79,7 @@ Interval.Bounded(1, BoundType.Closed, 4, BoundType.Open); // another way of writ
 
 ## Operations
 
-The fundamental operation of an `Interval` is its `Contains(C)` methods, which
+The fundamental operation of an `Interval` is its `Contains(T)` methods, which
 behaves exactly as you might expect. Any `Interval` also supports 
 `ContainsAll(IEnumerable)`.
 
