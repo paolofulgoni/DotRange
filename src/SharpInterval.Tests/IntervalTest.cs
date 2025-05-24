@@ -103,6 +103,64 @@ public class IntervalTest
     }
 
     [Test]
+    public void Bounded_Valid()
+    {
+        var openOpen = Interval.Bounded(4, BoundType.Open, 8, BoundType.Open);
+        openOpen.Contains(4).Should().BeFalse();
+        openOpen.Contains(8).Should().BeFalse();
+        openOpen.HasLowerBound().Should().BeTrue();
+        openOpen.LowerEndpoint().Should().Be(4);
+        openOpen.LowerBoundType().Should().Be(BoundType.Open);
+        openOpen.HasUpperBound().Should().BeTrue();
+        openOpen.UpperEndpoint().Should().Be(8);
+        openOpen.UpperBoundType().Should().Be(BoundType.Open);
+        openOpen.Should().Be(Interval.Open(4, 8));
+
+        var openClosed = Interval.Bounded(4, BoundType.Open, 8, BoundType.Closed);
+        openClosed.Contains(4).Should().BeFalse();
+        openClosed.Contains(8).Should().BeTrue();
+        openClosed.HasLowerBound().Should().BeTrue();
+        openClosed.LowerEndpoint().Should().Be(4);
+        openClosed.LowerBoundType().Should().Be(BoundType.Open);
+        openClosed.HasUpperBound().Should().BeTrue();
+        openClosed.UpperEndpoint().Should().Be(8);
+        openClosed.UpperBoundType().Should().Be(BoundType.Closed);
+        openClosed.Should().Be(Interval.OpenClosed(4, 8));
+
+        var closedOpen = Interval.Bounded(4, BoundType.Closed, 8, BoundType.Open);
+        closedOpen.Contains(4).Should().BeTrue();
+        closedOpen.Contains(8).Should().BeFalse();
+        closedOpen.HasLowerBound().Should().BeTrue();
+        closedOpen.LowerEndpoint().Should().Be(4);
+        closedOpen.LowerBoundType().Should().Be(BoundType.Closed);
+        closedOpen.HasUpperBound().Should().BeTrue();
+        closedOpen.UpperEndpoint().Should().Be(8);
+        closedOpen.UpperBoundType().Should().Be(BoundType.Open);
+        closedOpen.Should().Be(Interval.ClosedOpen(4, 8));
+
+        var closedClosed = Interval.Bounded(4, BoundType.Closed, 8, BoundType.Closed);
+        closedClosed.Contains(4).Should().BeTrue();
+        closedClosed.Contains(8).Should().BeTrue();
+        closedClosed.HasLowerBound().Should().BeTrue();
+        closedClosed.LowerEndpoint().Should().Be(4);
+        closedClosed.LowerBoundType().Should().Be(BoundType.Closed);
+        closedClosed.HasUpperBound().Should().BeTrue();
+        closedClosed.UpperEndpoint().Should().Be(8);
+        closedClosed.UpperBoundType().Should().Be(BoundType.Closed);
+        closedClosed.Should().Be(Interval.Closed(4, 8));
+    }
+
+    [Test]
+    public void Bounded_Invalid()
+    {
+        Action act1 = () => Interval.Bounded(4, BoundType.Closed, 3, BoundType.Open);
+        act1.Should().Throw<ArgumentException>();
+
+        Action act2 = () => Interval.Bounded(3, BoundType.Open, 3, BoundType.Open);
+        act2.Should().Throw<ArgumentException>();
+    }
+
+    [Test]
     public void IsConnected()
     {
         Interval.Closed(3, 5).IsConnected(Interval.Open(5, 6)).Should().BeTrue();
