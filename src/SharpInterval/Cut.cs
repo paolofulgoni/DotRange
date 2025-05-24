@@ -61,11 +61,11 @@ internal abstract class Cut<C> : IComparable<Cut<C>> where C : IComparable<C>
         {
             return 1;
         }
-        if (that == BelowAll.INSTANCE)
+        if (ReferenceEquals(that, BelowAll.INSTANCE))
         {
             return 1;
         }
-        if (that == AboveAll.INSTANCE)
+        if (ReferenceEquals(that, AboveAll.INSTANCE))
         {
             return -1;
         }

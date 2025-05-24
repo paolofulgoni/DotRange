@@ -180,7 +180,7 @@ public sealed class Interval<C> where C : IComparable<C>
         this._lowerBound = lowerBound ?? throw new ArgumentNullException(nameof(lowerBound));
         this._upperBound = upperBound ?? throw new ArgumentNullException(nameof(upperBound));
 
-        if (lowerBound.CompareTo(upperBound) > 0 || lowerBound == Cut.AboveAll<C>() || upperBound == Cut.BelowAll<C>())
+        if (lowerBound.CompareTo(upperBound) > 0 || ReferenceEquals(lowerBound, Cut.AboveAll<C>()) || ReferenceEquals(upperBound, Cut.BelowAll<C>()))
         {
             throw new ArgumentException("Invalid interval: " + ToString(lowerBound, upperBound));
         }
@@ -191,7 +191,7 @@ public sealed class Interval<C> where C : IComparable<C>
     /// </summary>
     public bool HasLowerBound()
     {
-        return _lowerBound != Cut.BelowAll<C>();
+        return !ReferenceEquals(_lowerBound, Cut.BelowAll<C>());
     }
 
     /// <summary>
@@ -219,7 +219,7 @@ public sealed class Interval<C> where C : IComparable<C>
     /// Returns <c>true</c> if this interval has an upper endpoint. </summary>
     public bool HasUpperBound()
     {
-        return _upperBound != Cut.AboveAll<C>();
+        return !ReferenceEquals(_upperBound, Cut.AboveAll<C>());
     }
 
     /// <summary>
