@@ -172,8 +172,8 @@ public static class Interval
 [Serializable]
 public sealed class Interval<C> where C : IComparable<C>
 {
-    internal readonly Cut<C> _lowerBound;
-    internal readonly Cut<C> _upperBound;
+    private readonly Cut<C> _lowerBound;
+    private readonly Cut<C> _upperBound;
 
     internal Interval(Cut<C> lowerBound, Cut<C> upperBound)
     {
