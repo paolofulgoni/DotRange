@@ -534,10 +534,9 @@ public class IntervalTest
         Interval.Closed(3, 6).Encloses(Interval.Closed(4, 5)).Should().BeTrue();
         Interval.Open(3, 6).Encloses(Interval.Open(3, 6)).Should().BeTrue();
         Interval.Closed(4, 5).Encloses(Interval.Open(3, 6)).Should().BeFalse();
-        // Additional Encloses assertions
-        Interval.Closed(3, 6).Encloses(Interval.ClosedOpen(4, 4)).Should().BeTrue(); // for "[3..6] encloses [4..4)"
-        Interval.Open(3, 6).Encloses(Interval.Closed(3, 6)).Should().BeFalse(); // for "(3..6) does not enclose [3..6]"
-        Interval.Closed(3, 6).Encloses(Interval.OpenClosed(1, 1)).Should().BeFalse(); // for "[3..6] does not enclose (1..1]"
+        Interval.Closed(3, 6).Encloses(Interval.ClosedOpen(4, 4)).Should().BeTrue();
+        Interval.Open(3, 6).Encloses(Interval.Closed(3, 6)).Should().BeFalse();
+        Interval.Closed(3, 6).Encloses(Interval.OpenClosed(1, 1)).Should().BeFalse();
 
         Interval.Closed(3, 5).IsConnected(Interval.Open(5, 10)).Should().BeTrue();
         Interval.Closed(0, 9).IsConnected(Interval.Closed(3, 4)).Should().BeTrue();
