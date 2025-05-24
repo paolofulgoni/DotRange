@@ -15,18 +15,20 @@ Intervals can be finite (e.g., numbers between 2 and 5) or they can extend indef
 
 To describe intervals concisely, we use a common mathematical notation:
 
-*   An interval like **`(a..b)`** represents all values **greater than 'a' and less than 'b'**. 'a' and 'b' themselves are *not* included. This is called an **open interval**. For example, `(1..5)` includes numbers like 1.1, 2, 4.9, but not 1 or 5.
-*   An interval like **`[a..b]`** represents all values **greater than or equal to 'a' and less than or equal to 'b'**. 'a' and 'b' *are* included. This is called a **closed interval**. For example, `[1..5]` includes 1, 5, and all numbers in between.
-*   An interval like **`[a..b)`** represents all values **greater than or equal to 'a' and less than 'b'**. 'a' *is* included, but 'b' is *not*. This is a **half-open interval** (closed at the start, open at the end). For example, `[1..5)` includes 1, 4.999..., but not 5.
-*   An interval like **`(a..b]`** represents all values **greater than 'a' and less than or equal to 'b'**. 'a' is *not* included, but 'b' *is*. This is also a **half-open interval** (open at the start, closed at the end). For example, `(1..5]` includes 1.000...1, 5, but not 1.
+*   An interval like **`(a..b)`** represents all values **greater than 'a' and less than 'b'**. 'a' and 'b' themselves are *not* included. This is called an **open interval**. For example, if we are considering integers, `(1..5)` includes 2, 3, and 4, but not 1 or 5.
+*   An interval like **`[a..b]`** represents all values **greater than or equal to 'a' and less than or equal to 'b'**. 'a' and 'b' *are* included. This is called a **closed interval**. For example, if we are considering integers, `[1..5]` includes 1, 2, 3, 4, and 5.
+*   An interval like **`[a..b)`** represents all values **greater than or equal to 'a' and less than 'b'**. 'a' *is* included, but 'b' is *not*. This is a **half-open interval** (closed at the start, open at the end). For example, if we are considering integers, `[1..5)` includes 1, 2, 3, and 4, but not 5.
+*   An interval like **`(a..b]`** represents all values **greater than 'a' and less than or equal to 'b'**. 'a' is *not* included, but 'b' *is*. This is also a **half-open interval** (open at the start, closed at the end). For example, if we are considering integers, `(1..5]` includes 2, 3, 4, and 5, but not 1.
 
 Intervals can also be unbounded on one side, using `+∞` (positive infinity) or `-∞` (negative infinity):
 
-*   **`(a..+∞)`**: All values **strictly greater than 'a'**. For example, `(5..+∞)` means all numbers from 5.000...1 upwards.
-*   **`[a..+∞)`**: All values **greater than or equal to 'a'**. For example, `[5..+∞)` means all numbers from 5 upwards.
-*   **`(-∞..b)`**: All values **strictly less than 'b'**. For example, `(-∞..5)` means all numbers up to 4.999....
-*   **`(-∞..b]`**: All values **less than or equal to 'b'**. For example, `(-∞..5]` means all numbers up to 5.
+*   **`(a..+∞)`**: All values **strictly greater than 'a'**. For example, `(5..+∞)` means all values strictly greater than 5. If considering integers, this would be 6, 7, 8, and so on.
+*   **`[a..+∞)`**: All values **greater than or equal to 'a'**. For example, `[5..+∞)` means all values greater than or equal to 5. If considering integers, this would be 5, 6, 7, and so on.
+*   **`(-∞..b)`**: All values **strictly less than 'b'**. For example, `(-∞..5)` means all values strictly less than 5. If considering integers, this would be 4, 3, 2, and so on.
+*   **`(-∞..b]`**: All values **less than or equal to 'b'**. For example, `(-∞..5)` means all values less than or equal to 5. If considering integers, this would be 5, 4, 3, and so on.
 *   **`(-∞..+∞)`**: Represents **all possible values** in the domain.
+
+These examples often use integers for simplicity, but `Interval<T>` can work with any comparable type, such as `double`, `decimal`, `DateTime`, or `string` (where comparisons are typically alphabetical).
 
 The values 'a' and 'b' in these notations are called the **endpoints** of the interval. They define the boundaries of the range.
 Whether an endpoint is included or excluded determines if the interval's bound is **closed** (inclusive) or **open** (exclusive).
