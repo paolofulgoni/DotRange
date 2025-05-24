@@ -355,7 +355,7 @@ public sealed class Interval<T> where T : IComparable<T>
     /// </para>
     /// <para>This operation is only valid if the two intervals are connected (i.e., they touch or overlap, as determined by <see cref="IsConnected"/>).</para>
     /// <para>The intersection operation is commutative, associative and idempotent, and its identity
-    /// element is <seealso cref="Interval.All{T}"/>).
+    /// element is <seealso cref="Interval.All{T}"/>.
     /// </para>
     /// </summary>
     /// <exception cref="ArgumentException"> if the intervals are not connected (<c>IsConnected(connectedRange)</c> is <c>false</c>). </exception>

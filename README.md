@@ -159,15 +159,15 @@ An interval can find its `Intersection(otherInterval)`, which returns the maxima
 ```cs
 var intervalA = Interval.Closed(3, 5);
 var intervalB = Interval.Open(5, 10);
-var intersection1 = intervalA.Intersection(intervalB); // returns (5, 5]
+var intersection1 = intervalA.Intersection(intervalB); // returns (5..5]
 
 var intervalC = Interval.Closed(0, 9);
 var intervalD = Interval.Closed(3, 4);
-var intersection2 = intervalC.Intersection(intervalD); // returns [3, 4]
+var intersection2 = intervalC.Intersection(intervalD); // returns [3..4]
 
 var intervalE = Interval.Closed(0, 5);
 var intervalF = Interval.Closed(3, 9);
-var intersection3 = intervalE.Intersection(intervalF); // returns [3, 5]
+var intersection3 = intervalE.Intersection(intervalF); // returns [3..5]
 
 // Examples that throw ArgumentException because intervals are not connected:
 // Interval.Open(3, 5).Intersection(Interval.Open(5, 10));
@@ -183,23 +183,23 @@ An interval can determine its `Span(otherInterval)`, which returns the minimal i
 ```cs
 var intervalA = Interval.Closed(3, 5);
 var intervalB = Interval.Open(5, 10);
-var span1 = intervalA.Span(intervalB); // returns [3, 10)
+var span1 = intervalA.Span(intervalB); // returns [3..10)
 
 var intervalC = Interval.Closed(0, 9);
 var intervalD = Interval.Closed(3, 4);
-var span2 = intervalC.Span(intervalD); // returns [0, 9]
+var span2 = intervalC.Span(intervalD); // returns [0..9]
 
 var intervalE = Interval.Closed(0, 5);
 var intervalF = Interval.Closed(3, 9);
-var span3 = intervalE.Span(intervalF); // returns [0, 9]
+var span3 = intervalE.Span(intervalF); // returns [0..9]
 
 var intervalG = Interval.Open(3, 5);
 var intervalH = Interval.Open(5, 10);
-var span4 = intervalG.Span(intervalH); // returns (3, 10)
+var span4 = intervalG.Span(intervalH); // returns (3..10)
 
 var intervalI = Interval.Closed(1, 5);
 var intervalJ = Interval.Closed(6, 10);
-var span5 = intervalI.Span(intervalJ); // returns [1, 10]
+var span5 = intervalI.Span(intervalJ); // returns [1..10]
 ```
 
 ## Credits
