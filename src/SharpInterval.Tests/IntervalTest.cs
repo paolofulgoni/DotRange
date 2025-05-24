@@ -269,6 +269,30 @@ public class IntervalTest
     }
 
     [Test]
+    public void DownTo_Open()
+    {
+        var interval = Interval.DownTo(5, BoundType.Open);
+        interval.Should().Be(Interval.GreaterThan(5));
+        interval.Contains(5).Should().BeFalse();
+        interval.Contains(6).Should().BeTrue();
+        interval.HasLowerBound().Should().BeTrue();
+        interval.LowerBoundType().Should().Be(BoundType.Open);
+        AssertUnboundedAbove(interval);
+    }
+
+    [Test]
+    public void DownTo_Closed()
+    {
+        var interval = Interval.DownTo(6, BoundType.Closed);
+        interval.Should().Be(Interval.AtLeast(6));
+        interval.Contains(5).Should().BeFalse();
+        interval.Contains(6).Should().BeTrue();
+        interval.HasLowerBound().Should().BeTrue();
+        interval.LowerBoundType().Should().Be(BoundType.Closed);
+        AssertUnboundedAbove(interval);
+    }
+
+    [Test]
     public void AtMost()
     {
         var interval = Interval.AtMost(4);
