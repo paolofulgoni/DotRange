@@ -503,8 +503,16 @@ public class IntervalTest
         lexiInterval.Contains("lift").Should().BeTrue();
         Interval.LessThan(4.0);
 
-        var boundType = BoundType.Closed;
-        Interval.DownTo(4, boundType);
+        var downToClosed = Interval.DownTo(4, BoundType.Closed);
+        downToClosed.Should().Be(Interval.AtLeast(4));
+        downToClosed.Contains(4).Should().BeTrue();
+        downToClosed.Contains(3).Should().BeFalse();
+
+        var downToOpen = Interval.DownTo(4, BoundType.Open);
+        downToOpen.Should().Be(Interval.GreaterThan(4));
+        downToOpen.Contains(4).Should().BeFalse();
+        downToOpen.Contains(5).Should().BeTrue();
+
         Interval.Bounded(1, BoundType.Closed, 4, BoundType.Open);
 
         Interval.Closed(1, 3).Contains(2).Should().BeTrue();
@@ -526,6 +534,9 @@ public class IntervalTest
         Interval.Closed(3, 6).Encloses(Interval.Closed(4, 5)).Should().BeTrue();
         Interval.Open(3, 6).Encloses(Interval.Open(3, 6)).Should().BeTrue();
         Interval.Closed(4, 5).Encloses(Interval.Open(3, 6)).Should().BeFalse();
+        Interval.Closed(3, 6).Encloses(Interval.ClosedOpen(4, 4)).Should().BeTrue();
+        Interval.Open(3, 6).Encloses(Interval.Closed(3, 6)).Should().BeFalse();
+        Interval.Closed(3, 6).Encloses(Interval.OpenClosed(1, 1)).Should().BeFalse();
 
         Interval.Closed(3, 5).IsConnected(Interval.Open(5, 10)).Should().BeTrue();
         Interval.Closed(0, 9).IsConnected(Interval.Closed(3, 4)).Should().BeTrue();

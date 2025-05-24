@@ -14,8 +14,8 @@ namespace SharpInterval;
 public static class Interval
 {
     /// <summary>
-    /// Returns an interval that contains all values strictly greater than <paramref name="lower"/> and strictly less
-    /// than <paramref name="upper"/>.
+    /// Creates an interval representing all values that are strictly greater than <paramref name="lower"/> and strictly less
+    /// than <paramref name="upper"/>. Neither <paramref name="lower"/> nor <paramref name="upper"/> are included in the interval.
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than or equal to <paramref name="upper"/>
     /// </exception>
@@ -25,8 +25,8 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns an interval that contains all values greater than or equal to <paramref name="lower"/> and less than
-    /// or equal to <paramref name="upper"/>.
+    /// Creates an interval representing all values from <paramref name="lower"/> to <paramref name="upper"/>,
+    /// including both <paramref name="lower"/> and <paramref name="upper"/>.
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than <paramref name="upper"/>
     /// </exception>
@@ -36,8 +36,8 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns an interval that contains all values greater than or equal to <paramref name="lower"/> and strictly
-    /// less than <paramref name="upper"/>.
+    /// Creates an interval representing all values from <paramref name="lower"/> (inclusive) up to, but not including,
+    /// <paramref name="upper"/> (exclusive).
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than <paramref name="upper"/>
     /// </exception>
@@ -47,8 +47,8 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns an interval that contains all values strictly greater than <paramref name="lower"/> and less than or
-    /// equal to <paramref name="upper"/>.
+    /// Creates an interval representing all values strictly greater than <paramref name="lower"/> (exclusive) up to,
+    /// and including, <paramref name="upper"/> (inclusive).
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than <paramref name="upper"/>
     /// </exception>
@@ -58,8 +58,9 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns an interval that contains any value from <paramref name="lower"/> to <paramref name="upper"/>, where each
-    /// endpoint may be either inclusive (closed) or exclusive (open).
+    /// Creates an interval from <paramref name="lower"/> to <paramref name="upper"/>. You can specify whether
+    /// <paramref name="lower"/> and <paramref name="upper"/> are included or excluded using <paramref name="lowerType"/>
+    /// and <paramref name="upperType"/> respectively.
     /// </summary>
     /// <exception cref="ArgumentException"> if <paramref name="lower"/> is greater than <paramref name="upper"/>
     /// </exception>
@@ -71,7 +72,8 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns an interval that contains all values strictly less than <paramref name="endpoint"/>.
+    /// Creates an interval representing all values strictly less than the <paramref name="endpoint"/>.
+    /// The <paramref name="endpoint"/> itself is not included. The interval has no lower bound (extends to negative infinity).
     /// </summary>
     public static Interval<T> LessThan<T>(T endpoint) where T : IComparable<T>
     {
@@ -79,7 +81,8 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns an interval that contains all values less than or equal to <paramref name="endpoint"/>.
+    /// Creates an interval representing all values less than or equal to the <paramref name="endpoint"/>.
+    /// The <paramref name="endpoint"/> itself is included. The interval has no lower bound (extends to negative infinity).
     /// </summary>
     public static Interval<T> AtMost<T>(T endpoint) where T : IComparable<T>
     {
@@ -87,8 +90,8 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns an interval with no lower bound up to the given endpoint, which may be either inclusive
-    /// (closed) or exclusive (open).
+    /// Creates an interval that extends indefinitely from negative infinity up to the specified <paramref name="endpoint"/>.
+    /// Whether the <paramref name="endpoint"/> is included or excluded is determined by <paramref name="boundType"/>.
     /// </summary>
     public static Interval<T> UpTo<T>(T endpoint, BoundType boundType) where T : IComparable<T>
     {
@@ -104,7 +107,8 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns an interval that contains all values strictly greater than <paramref name="endpoint"/>.
+    /// Creates an interval representing all values strictly greater than the <paramref name="endpoint"/>.
+    /// The <paramref name="endpoint"/> itself is not included. The interval has no upper bound (extends to positive infinity).
     /// </summary>
     public static Interval<T> GreaterThan<T>(T endpoint) where T : IComparable<T>
     {
@@ -112,7 +116,8 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns an interval that contains all values greater than or equal to <paramref name="endpoint"/>.
+    /// Creates an interval representing all values greater than or equal to the <paramref name="endpoint"/>.
+    /// The <paramref name="endpoint"/> itself is included. The interval has no upper bound (extends to positive infinity).
     /// </summary>
     public static Interval<T> AtLeast<T>(T endpoint) where T : IComparable<T>
     {
@@ -120,8 +125,8 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns an interval from the given endpoint, which may be either inclusive (closed) or exclusive
-    /// (open), with no upper bound.
+    /// Creates an interval that starts from the specified <paramref name="endpoint"/> and extends indefinitely to positive infinity.
+    /// Whether the <paramref name="endpoint"/> is included or excluded is determined by <paramref name="boundType"/>.
     /// </summary>
     public static Interval<T> DownTo<T>(T endpoint, BoundType boundType) where T : IComparable<T>
     {
@@ -137,7 +142,8 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns an interval that contains every value of type <typeparamref name="T"/>.
+    /// Creates an interval that represents all possible values of type <typeparamref name="T"/>.
+    /// It has no lower or upper bounds (extends from negative to positive infinity).
     /// </summary>
     public static Interval<T> All<T>() where T : IComparable<T>
     {
@@ -145,8 +151,8 @@ public static class Interval
     }
 
     /// <summary>
-    /// Returns an interval that contains only the given value. The
-    /// returned interval is closed on both ends.
+    /// Creates an interval that contains only a single <paramref name="value"/>.
+    /// This is equivalent to an interval where the start and end points are both <paramref name="value"/>, and both are included.
     /// </summary>
     public static Interval<T> Singleton<T>(T value) where T : IComparable<T>
     {
@@ -155,19 +161,19 @@ public static class Interval
 }
 
 /// <summary>
-/// An interval (sometimes called a range) defines the boundaries around a contiguous span of values of some
-/// <c>Comparable</c> type; for example, "integers from 1 to 100 inclusive." Note that it is not
-/// possible to iterate over these contained values.
+/// Represents an interval, which is a continuous range of values of a comparable type (e.g., numbers from 1 to 100).
+/// This class defines the boundaries of such a range but doesn't allow iterating through the individual values within it.
 /// </summary>
 /// <remarks>
-/// <para>An interval is a contiguous range of comparable values. Each side can be
-/// open, closed or unbounded, and factory methods exist for the common forms.</para>
-/// <para>The upper endpoint may not be less than the lower one. They can coincide
-/// only if at least one side is closed.</para>
+/// <para>An interval represents a continuous set of values. Its start and end points can be 'open' (value excluded),
+/// 'closed' (value included), or 'unbounded' (extending to infinity). Helper methods are available to create
+/// common types of intervals easily.</para>
+/// <para>The end point of an interval cannot be before its start point. The start and end points can be the same value
+/// if the interval includes that value (i.e., at least one bound is 'closed').</para>
 /// <para>Use immutable value types whenever possible and ensure comparisons are
 /// consistent with equality.</para>
-/// <para>Intervals are convex: whenever two values are contained, all values in
-/// between them are contained as well.</para>
+/// <para>A key property of intervals is that they are 'convex', meaning if two values are in the interval,
+/// all values between them are also in the interval.</para>
 /// </remarks>
 [Serializable]
 public sealed class Interval<T> where T : IComparable<T>
@@ -187,7 +193,7 @@ public sealed class Interval<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if this interval has a lower endpoint.
+    /// Checks if this interval has a defined starting point (it's not unbounded towards negative infinity).
     /// </summary>
     public bool HasLowerBound()
     {
@@ -195,9 +201,9 @@ public sealed class Interval<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Returns the lower endpoint of this interval.
+    /// Gets the starting value of this interval.
     /// </summary>
-    /// <exception cref="InvalidOperationException"> if this interval is unbounded below
+    /// <exception cref="InvalidOperationException"> if this interval has no defined starting point (i.e., it extends to negative infinity)
     /// (that is, <seealso cref="Interval{T}.HasLowerBound"/> returns <c>false</c>)</exception>
     public T LowerEndpoint()
     {
@@ -205,10 +211,9 @@ public sealed class Interval<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Returns the type of this interval's lower bound: <seealso cref="BoundType.Closed"/> if the interval includes
-    /// its lower endpoint, <seealso cref="BoundType.Open"/> if it does not.
+    /// Determines if the interval's starting point is 'Open' (start value not included) or 'Closed' (start value included).
     /// </summary>
-    /// <exception cref="InvalidOperationException"> if this interval is unbounded below
+    /// <exception cref="InvalidOperationException"> if this interval has no defined starting point
     /// (that is, <seealso cref="Interval{T}.HasLowerBound"/> returns <c>false</c>)</exception>
     public BoundType LowerBoundType()
     {
@@ -216,16 +221,17 @@ public sealed class Interval<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if this interval has an upper endpoint. </summary>
+    /// Checks if this interval has a defined ending point (it's not unbounded towards positive infinity).
+    /// </summary>
     public bool HasUpperBound()
     {
         return _upperBound != Cut.AboveAll<T>();
     }
 
     /// <summary>
-    /// Returns the upper endpoint of this interval.
+    /// Gets the ending value of this interval.
     /// </summary>
-    /// <exception cref="InvalidOperationException"> if this interval is unbounded above
+    /// <exception cref="InvalidOperationException"> if this interval has no defined ending point (i.e., it extends to positive infinity)
     /// (that is, <seealso cref="Interval{T}.HasUpperBound"/> returns <c>false</c>)</exception>
     public T UpperEndpoint()
     {
@@ -233,10 +239,9 @@ public sealed class Interval<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Returns the type of this interval's upper bound: <seealso cref="BoundType.Closed"/> if the interval includes
-    /// its upper endpoint, <seealso cref="BoundType.Open"/> if it does not.
+    /// Determines if the interval's ending point is 'Open' (end value not included) or 'Closed' (end value included).
     /// </summary>
-    /// <exception cref="InvalidOperationException"> if this interval is unbounded above
+    /// <exception cref="InvalidOperationException"> if this interval has no defined ending point
     /// (that is, <seealso cref="Interval{T}.HasUpperBound"/> returns <c>false</c>)</exception>
     public BoundType UpperBoundType()
     {
@@ -244,8 +249,8 @@ public sealed class Interval<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if this interval is of the form <c>[v..v)</c> or <c>(v..v]</c>. (This does
-    /// not encompass intervals of the form <c>(v..v)</c>, because such intervals are invalid and
+    /// Checks if the interval contains no values. For example, an interval like `[5..5)` (from 5, including 5, up to 5, excluding 5) is empty.
+    /// (This does not encompass intervals of the form <c>(v..v)</c>, because such intervals are invalid and
     /// can't be constructed at all.)
     /// 
     /// <para>Note that certain discrete intervals such as the integer interval <c>(3..4)</c> are not
@@ -258,7 +263,7 @@ public sealed class Interval<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if <c>value</c> is within the bounds of this interval. For example, on the
+    /// Checks if the given <paramref name="value"/> is within this interval. For example, on the
     /// interval <c>[0..2)</c>, <c>contains(1)</c> returns <c>true</c>, while <c>contains(2)</c>
     /// returns <c>false</c>.
     /// </summary>
@@ -269,7 +274,7 @@ public sealed class Interval<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if every element in <c>values</c> is contained in this interval.
+    /// Checks if every element in the provided <paramref name="values"/> collection is contained in this interval.
     /// </summary>
     public bool ContainsAll<T1>(IEnumerable<T1> values) where T1 : T
     {
@@ -284,21 +289,19 @@ public sealed class Interval<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if the bounds of <c>other</c> do not extend outside the bounds of this
-    /// interval. Examples:
-    /// 
+    /// Checks if this interval completely contains the <paramref name="other"/> interval.
+    /// This means the <paramref name="other"/> interval's start and end points must not extend beyond this interval's own start and end points.
+    /// Examples:
     /// <list type="bullet">
-    /// <item><description><c>[3..6]</c> encloses <c>[4..5]</c></description></item>
-    /// <item><description><c>(3..6)</c> encloses <c>(3..6)</c></description></item>
-    /// <item><description><c>[3..6]</c> encloses <c>[4..4)</c> (even though the latter is empty)</description></item>
-    /// <item><description><c>(3..6]</c> does not enclose <c>[3..6]</c></description></item>
-    /// <item><description><c>[4..5]</c> does not enclose <c>(3..6)</c> (even though it contains every value
-    /// contained by the latter interval)</description></item>
-    /// <item><description><c>[3..6]</c> does not enclose <c>(1..1]</c> (even though it contains every value
-    /// contained by the latter interval)</description></item>
+    /// <item><description><c>[3..6]</c> encloses <c>[4..5]</c> (True)</description></item>
+    /// <item><description><c>(3..6)</c> encloses <c>(3..6)</c> (True)</description></item>
+    /// <item><description><c>[3..6]</c> encloses <c>[4..4)</c> (True, even though <c>[4..4)</c> is empty)</description></item>
+    /// <item><description><c>(3..6]</c> does not enclose <c>[3..6]</c> (False, because the start of <c>[3..6]</c> is '3 inclusive', which is not in <c>(3..6]</c>)</description></item>
+    /// <item><description><c>[4..5]</c> does not enclose <c>(3..6)</c> (False, because <c>(3..6)</c> extends beyond <c>[4..5]</c>)</description></item>
     /// </list>
     /// 
-    /// <para>Note that if <c>a.encloses(b)</c>, then <c>b.contains(v)</c> implies <c>a.contains(v)</c>, but as the last two examples illustrate, the converse is not always true.
+    /// <para>If <c>A.Encloses(B)</c> is true, then any value contained in B is also contained in A.
+    /// However, the reverse is not always true. For example, <c>[4..5]</c> contains all values of <c>(4.0..4.5)</c>, but <c>[4..5]</c> does not enclose <c>(3..6)</c>.
     /// 
     /// </para>
     /// <para>Being reflexive, antisymmetric and transitive, the <c>encloses</c> relation defines a
@@ -313,15 +316,13 @@ public sealed class Interval<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if there exists a (possibly empty) interval that is enclosed by both this interval and <paramref name="other"/>.
+    /// Checks if this interval and the <paramref name="other"/> interval touch or overlap, meaning there is no gap between them.
     /// 
-    /// <para>For example,
-    /// 
+    /// <para>For example:
     /// <list type="bullet">
-    /// <item><description><c>[2, 4)</c> and <c>[5, 7)</c> are not connected</description></item>
-    /// <item><description><c>[2, 4)</c> and <c>[3, 5)</c> are connected, because both enclose <c>[3, 4)</c></description></item>
-    /// <item><description><c>[2, 4)</c> and <c>[4, 6)</c> are connected, because both enclose the empty interval
-    /// <c>[4, 4)</c></description></item>
+    /// <item><description><c>[2..4)</c> and <c>[5..7)</c> are not connected (gap between 4 and 5).</description></item>
+    /// <item><description><c>[2..4)</c> and <c>[3..5)</c> are connected (overlap is <c>[3..4)</c>).</description></item>
+    /// <item><description><c>[2..4)</c> and <c>[4..6)</c> are connected (touch at 4, the empty interval <c>[4..4)</c> is common).</description></item>
     /// </list>
     /// 
     /// </para>
@@ -346,21 +347,18 @@ public sealed class Interval<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Returns the maximal interval enclosed by both this interval and <paramref name="connectedRange"/>, if such an interval exists.
+    /// Calculates the common part (overlap) of this interval and <paramref name="connectedRange"/>.
     /// 
-    /// <para>For example, the intersection of <c>[1..5]</c> and <c>(3..7)</c> is <c>(3..5]</c>. The
-    /// resulting interval may be empty; for example, <c>[1..5)</c> intersected with <c>[5..7)</c>
-    /// yields the empty interval <c>[5..5)</c>.
+    /// <para>For example, the intersection of <c>[1..5]</c> and <c>(3..7)</c> is <c>(3..5]</c>.
+    /// The result can be an empty interval, e.g., <c>[1..5)</c> intersected with <c>[5..7)</c> results in <c>[5..5)</c>.
     /// 
     /// </para>
-    /// <para>The intersection exists if and only if the two intervals are connected
-    /// (<see cref="IsConnected"/>).</para>
+    /// <para>This operation is only valid if the two intervals are connected (i.e., they touch or overlap, as determined by <see cref="IsConnected"/>).</para>
     /// <para>The intersection operation is commutative, associative and idempotent, and its identity
     /// element is <seealso cref="Interval.All{T}"/>).
-    /// 
     /// </para>
     /// </summary>
-    /// <exception cref="ArgumentException"> if <c>isConnected(connectedRange)</c> is <c>false</c> </exception>
+    /// <exception cref="ArgumentException"> if the intervals are not connected (<c>IsConnected(connectedRange)</c> is <c>false</c>). </exception>
     public Interval<T> Intersection(Interval<T> connectedRange)
     {
         int lowerCmp = _lowerBound.CompareTo(connectedRange._lowerBound);
@@ -382,12 +380,12 @@ public sealed class Interval<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Returns the minimal interval that encloses both this interval and <paramref name="other"/>.
+    /// Calculates the smallest single interval that encompasses both this interval and the <paramref name="other"/> interval.
     /// For example, the span of <c>[1..3]</c> and <c>(5..7)</c> is <c>[1..7)</c>.
     /// 
-    /// <para>If the input intervals are connected, the returned interval can
-    /// also be called their union. If they are not, note that the span might contain values
-    /// that are not contained in either input interval.
+    /// <para>If the two input intervals are connected (touch or overlap), their span is effectively their union.
+    /// If they are not connected (there's a gap between them), the span will include that gap as well.
+    /// For instance, the span of <c>[1..3]</c> and <c>[5..7]</c> is <c>[1..7]</c>.
     /// 
     /// </para>
     /// <para>Like <seealso cref="Interval{T}.Intersection(Interval{T})"/>, this operation is commutative, associative
@@ -415,11 +413,10 @@ public sealed class Interval<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Returns <c>true</c> if <c>object</c> is an interval having the same endpoints and bound types as
-    /// this interval. Note that discrete intervals such as <c>(1..4)</c> and <c>[2..3]</c> are not
-    /// equal to one another, despite the fact that they each contain precisely the same set of values.
-    /// Similarly, empty intervals are not equal unless they have exactly the same representation, so
-    /// <c>[3..3)</c>, <c>(3..3]</c>, <c>(4..4]</c> are all unequal.
+    /// Checks if this interval is identical to another interval, meaning they have the same start and end points and the same bound types (Open/Closed).
+    /// Note that intervals like <c>(1..4)</c> (integers 2, 3) and <c>[2..3]</c> (integers 2, 3) are not
+    /// considered equal by this method, because their boundary definitions differ, even if they happen to contain the same set of discrete values.
+    /// Similarly, empty intervals like <c>[3..3)</c> and <c>(3..3]</c> are not equal.
     /// </summary>
     public override bool Equals(object? other)
     {

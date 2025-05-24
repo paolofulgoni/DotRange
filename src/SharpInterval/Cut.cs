@@ -28,11 +28,9 @@ internal class Cut
 }
 
 /// <summary>
-/// Implementation detail for the internal structure of <seealso cref="Interval{T}"/> instances. Represents a unique
-/// way of "cutting" a "number line" (actually of instances of type <typeparamref name="T"/>, not necessarily
-/// "numbers") into two sections; this can be done below a certain value, above a certain value,
-/// below all values or above all values. With this object defined in this way, an interval can
-/// always be represented by a pair of <seealso cref="Cut{T}"/> instances.
+/// Internal helper class for <seealso cref="Interval{T}"/>. It defines a specific point (or 'cut')
+/// on a sequence of values. An interval is essentially defined by two such cuts: one for its start
+/// and one for its end.
 /// </summary>
 [Serializable]
 internal abstract class Cut<T> : IComparable<Cut<T>> where T : IComparable<T>
