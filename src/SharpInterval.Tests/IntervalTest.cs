@@ -132,6 +132,21 @@ public class IntervalTest
     }
 
     [Test]
+    public void Singleton_Factory()
+    {
+        var interval = Interval.Singleton(5);
+
+        interval.Should().Be(Interval.Closed(5, 5));
+        interval.Contains(5).Should().BeTrue();
+        interval.Contains(4).Should().BeFalse();
+        interval.Contains(6).Should().BeFalse();
+
+        interval.LowerBoundType().Should().Be(BoundType.Closed);
+        interval.UpperBoundType().Should().Be(BoundType.Closed);
+        interval.IsEmpty().Should().BeFalse();
+    }
+
+    [Test]
     public void Empty1()
     {
         var interval = Interval.ClosedOpen(4, 4);
