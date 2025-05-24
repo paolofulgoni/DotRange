@@ -226,6 +226,42 @@ public class IntervalTest
     }
 
     [Test]
+    public void UpTo_Open()
+    {
+        var interval = Interval.UpTo(5, BoundType.Open);
+
+        // behaves like LessThan
+        interval.Should().Be(Interval.LessThan(5));
+        interval.Contains(int.MinValue).Should().BeTrue();
+        interval.Contains(4).Should().BeTrue();
+        interval.Contains(5).Should().BeFalse();
+        AssertUnboundedBelow(interval);
+        interval.HasUpperBound().Should().BeTrue();
+        interval.UpperEndpoint().Should().Be(5);
+        interval.UpperBoundType().Should().Be(BoundType.Open);
+        interval.IsEmpty().Should().BeFalse();
+        interval.ToString().Should().Be("(-\u221e..5)");
+    }
+
+    [Test]
+    public void UpTo_Closed()
+    {
+        var interval = Interval.UpTo(4, BoundType.Closed);
+
+        // behaves like AtMost
+        interval.Should().Be(Interval.AtMost(4));
+        interval.Contains(int.MinValue).Should().BeTrue();
+        interval.Contains(4).Should().BeTrue();
+        interval.Contains(5).Should().BeFalse();
+        AssertUnboundedBelow(interval);
+        interval.HasUpperBound().Should().BeTrue();
+        interval.UpperEndpoint().Should().Be(4);
+        interval.UpperBoundType().Should().Be(BoundType.Closed);
+        interval.IsEmpty().Should().BeFalse();
+        interval.ToString().Should().Be("(-\u221e..4]");
+    }
+
+    [Test]
     public void All()
     {
         var interval = Interval.All<int>();
