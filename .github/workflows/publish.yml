@@ -1,0 +1,23 @@
+name: Publish
+
+on:
+  push:
+    tags: [ '*' ]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Pack
+        run: dotnet pack src/SharpInterval/SharpInterval.csproj --configuration Release --no-build -p:PackageVersion=${{ github.ref_name }}
+      - name: Push package
+        run: dotnet nuget push src/SharpInterval/bin/Release/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
