@@ -504,12 +504,12 @@ public class IntervalTest
         Interval.LessThan(4.0);
 
         var downToClosed = Interval.DownTo(4, BoundType.Closed);
-        downToClosed.Should().Be(Interval.AtLeast(4)); // Verify it's equivalent
+        downToClosed.Should().Be(Interval.AtLeast(4));
         downToClosed.Contains(4).Should().BeTrue();
         downToClosed.Contains(3).Should().BeFalse();
 
         var downToOpen = Interval.DownTo(4, BoundType.Open);
-        downToOpen.Should().Be(Interval.GreaterThan(4)); // Verify it's equivalent
+        downToOpen.Should().Be(Interval.GreaterThan(4));
         downToOpen.Contains(4).Should().BeFalse();
         downToOpen.Contains(5).Should().BeTrue();
 
