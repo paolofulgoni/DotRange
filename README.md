@@ -122,7 +122,7 @@ Interval.Open(3, 10).UpperBoundType(); // returns Open
 
 #### `Encloses`
 
-`Encloses(Interval otherInterval)` checks if this interval completely contains another interval. This means the `otherInterval`'s start and end points don't go beyond this one's start and end points. The type of bounds (open/closed) also matters.
+An interval can check if it `Encloses(otherInterval)`, which is true if the `otherInterval`'s start and end points don't go beyond this one's start and end points. The type of bounds (open/closed) also matters.
 
 *   `[3..6]` encloses `[4..5]` (True: 4 is after 3, 5 is before 6, and the bounds are compatible)
 *   `(3..6)` encloses `(3..6)` (True: Identical intervals)
@@ -136,7 +136,7 @@ Given this, `Interval` provides the following operations:
 
 #### `IsConnected`
 
-`IsConnected(Interval otherInterval)` checks if two intervals touch or overlap, meaning there's no gap between them. If they are connected, their combined span forms a new, single continuous interval.
+An interval can test if it `IsConnected(otherInterval)`. This checks if two intervals touch or overlap, meaning there's no gap between them. If they are connected, their combined span forms a new, single continuous interval.
 
 `IsConnected` is a reflexive (an interval is connected to itself) and symmetric (if A is connected to B, B is connected to A) relation.
 
@@ -150,30 +150,54 @@ Interval.Closed(1, 5).IsConnected(Interval.Closed(6, 10)); // returns false
 
 #### `Intersection`
 
-`Intersection(Interval otherInterval)` finds the common part of two intervals—that is, the range of values that exists in *both* intervals. If the intervals don't overlap (i.e., they are not connected), this operation is not possible and will throw an `ArgumentException`.
+An interval can find its `Intersection(otherInterval)`, which returns the maximal interval representing the common part of two intervals—that is, the range of values that exists in *both* intervals. If the intervals don't overlap (i.e., they are not connected), this operation is not possible and will throw an `ArgumentException`.
 
 `Intersection` is a commutative (A intersect B = B intersect A) and associative ( (A intersect B) intersect C = A intersect (B intersect C) ) operation.
 
 ```cs
-Interval.Closed(3, 5).Intersection(Interval.Open(5, 10)); // returns (5, 5]
-Interval.Closed(0, 9).Intersection(Interval.Closed(3, 4)); // returns [3, 4]
-Interval.Closed(0, 5).Intersection(Interval.Closed(3, 9)); // returns [3, 5]
-Interval.Open(3, 5).Intersection(Interval.Open(5, 10)); // throws AE
-Interval.Closed(1, 5).Intersection(Interval.Closed(6, 10)); // throws AE
+var intervalA = Interval.Closed(3, 5);
+var intervalB = Interval.Open(5, 10);
+var intersection1 = intervalA.Intersection(intervalB); // returns (5, 5]
+
+var intervalC = Interval.Closed(0, 9);
+var intervalD = Interval.Closed(3, 4);
+var intersection2 = intervalC.Intersection(intervalD); // returns [3, 4]
+
+var intervalE = Interval.Closed(0, 5);
+var intervalF = Interval.Closed(3, 9);
+var intersection3 = intervalE.Intersection(intervalF); // returns [3, 5]
+
+// Examples that throw ArgumentException because intervals are not connected:
+// Interval.Open(3, 5).Intersection(Interval.Open(5, 10));
+// Interval.Closed(1, 5).Intersection(Interval.Closed(6, 10));
 ```
 
 #### `Span`
 
-`Span(Interval otherInterval)` returns the smallest single interval that covers *both* input intervals. If the intervals touch or overlap, their span is effectively their union. If there's a gap between them, the span will include that gap.
+An interval can determine its `Span(otherInterval)`, which returns the minimal interval that covers *both* input intervals. If the intervals touch or overlap, their span is effectively their union. If there's a gap between them, the span will include that gap.
 
 `Span` is a commutative (A span B = B span A), associative ( (A span B) span C = A span (B span C) ), and closed (the result is always a valid interval) operation.
 
 ```cs
-Interval.Closed(3, 5).Span(Interval.Open(5, 10)); // returns [3, 10)
-Interval.Closed(0, 9).Span(Interval.Closed(3, 4)); // returns [0, 9]
-Interval.Closed(0, 5).Span(Interval.Closed(3, 9)); // returns [0, 9]
-Interval.Open(3, 5).Span(Interval.Open(5, 10)); // returns (3, 10)
-Interval.Closed(1, 5).Span(Interval.Closed(6, 10)); // returns [1, 10]
+var intervalA = Interval.Closed(3, 5);
+var intervalB = Interval.Open(5, 10);
+var span1 = intervalA.Span(intervalB); // returns [3, 10)
+
+var intervalC = Interval.Closed(0, 9);
+var intervalD = Interval.Closed(3, 4);
+var span2 = intervalC.Span(intervalD); // returns [0, 9]
+
+var intervalE = Interval.Closed(0, 5);
+var intervalF = Interval.Closed(3, 9);
+var span3 = intervalE.Span(intervalF); // returns [0, 9]
+
+var intervalG = Interval.Open(3, 5);
+var intervalH = Interval.Open(5, 10);
+var span4 = intervalG.Span(intervalH); // returns (3, 10)
+
+var intervalI = Interval.Closed(1, 5);
+var intervalJ = Interval.Closed(6, 10);
+var span5 = intervalI.Span(intervalJ); // returns [1, 10]
 ```
 
 ## Credits
